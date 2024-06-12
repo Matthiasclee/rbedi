@@ -65,8 +65,8 @@ module RBEDI
     def trailer
       Segment.new(
         :interchange_control_trailer,
-        @functional_groups.length,
-        @interchange_control_number
+        functional_group_count: @functional_groups.length,
+        interchange_control_number: @interchange_control_number
       )
     end
 
