@@ -13,6 +13,8 @@ module RBEDI
         pos = self::SEGMENT_POSITIONS.key(pos) unless pos.is_a?(Integer)
         codes = self::CODES[pos]
 
+        return nil unless codes
+
         if code.is_a?(String)
           codes[code.downcase]
         else

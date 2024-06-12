@@ -127,9 +127,9 @@ module RBEDI
           "1" => true,
         },
         15 => {
-          "I" => :information,
-          "P" => :production,
-          "T" => :test,
+          "i" => :information,
+          "p" => :production,
+          "t" => :test,
         }
       }
     end

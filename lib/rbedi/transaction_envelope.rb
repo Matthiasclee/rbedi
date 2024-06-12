@@ -1,7 +1,5 @@
 module RBEDI
   class TransactionEnvelope
-    include Codes
-
     def initialize(
       submitter_id:,
       receiver_id:,
@@ -10,7 +8,7 @@ module RBEDI
       date_time: DateTime.now,
       repetition_separator: ?^,
       component_separator: ?:,
-      usage_indicator: PRODUCTION_USAGE_INDICATOR,
+      usage_indicator: Codes::ISA.code(:interchange_usage_indicator, :production),
       acknowledgement_requested: false
     )
       @submitter_id = submitter_id
