@@ -7,6 +7,8 @@ module RBEDI
         1 => :transaction_set_count,
         2 => :group_control_number
       }
+
+      CODES = {}
     end
   end
 end
