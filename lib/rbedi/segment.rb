@@ -1,7 +1,7 @@
 module RBEDI
   class Segment
     def initialize(segment_name, segment_elements)
-      @segment_name = segment_name
+      @segment_name = get_raw_segment_name(segment_name)
 
       begin
         @codes_class = Codes.const_get(@segment_name)
@@ -40,6 +40,14 @@ module RBEDI
       set_raw_element(element, code.nil? ? value : code)
     end
 
+    def segment_type
+      Codes::SegmentNames.segment_name(raw_segment_name)
+    end
+
+    def raw_segment_name
+      @segment_name
+    end
+
     def get_raw_element(n)
       @segment_elements[n - 1]
     end
@@ -53,13 +61,18 @@ module RBEDI
       new(elements[0], elements[1..-1])
     end
 
-    attr_reader :segment_name, :segment_elements
+    attr_reader :segment_elements
 
     private
     
     def get_element_pos(element)
       return @codes_class::SEGMENT_POSITIONS.key(element) unless element.is_a?(Integer)
       return element
+    end
+
+    def get_raw_segment_name(name)
+      return Codes::SegmentNames.segment_name(name) unless name.is_a?(String)
+      return name
     end
   end
 end

@@ -8,7 +8,7 @@ module RBEDI
       date_time: DateTime.now,
       repetition_separator: ?^,
       component_separator: ?:,
-      usage_indicator: Codes::ISA.code(:interchange_usage_indicator, :production),
+      usage_indicator: :production,
       acknowledgement_requested: false
     )
       @submitter_id = submitter_id
