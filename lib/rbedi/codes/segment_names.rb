@@ -4,6 +4,8 @@ module RBEDI
       SEGMENT_NAMES = {
         "ISA" => :interchange_control_header,
         "IEA" => :interchange_control_trailer,
+        "GS" => :functional_group_header,
+        "GE" => :functional_group_trailer,
       }
       
       def self.segment_name(segment)
