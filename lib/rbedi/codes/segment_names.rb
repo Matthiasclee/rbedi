@@ -2,7 +2,8 @@ module RBEDI
   module Codes
     module SegmentNames
       SEGMENT_NAMES = {
-        "ISA" => :interchange_control_header
+        "ISA" => :interchange_control_header,
+        "IEA" => :interchange_control_trailer,
       }
       
       def self.segment_name(segment)

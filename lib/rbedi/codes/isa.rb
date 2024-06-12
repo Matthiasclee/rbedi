@@ -14,7 +14,7 @@ module RBEDI
         8 => :interchange_receiver_id,
         9 => :interchange_date,
         10 => :interchange_time,
-        11 => :repitition_separator,
+        11 => :repetition_separator,
         12 => :interchange_control_version_number,
         13 => :interchange_control_number,
         14 => :acknowledgement_requested,
@@ -24,7 +24,7 @@ module RBEDI
 
       CODES = {
         1 => {
-          "00" => :no_authorization_information_present_no_meaningful_information_in_i02,
+          "00" => :no_authorization_information_present,
           "01" => :ucs_communications_id,
           "02" => :edx_communications_id,
           "03" => :additional_data_identification,
@@ -33,7 +33,7 @@ module RBEDI
           "06" => :united_states_federal_government_communication_identifier,
         },
         3 => {
-          "00" => :no_security_information_present_no_meaningful_information_in_i04,
+          "00" => :no_security_information_present,
           "01" => :password,
         },
         5 => {
