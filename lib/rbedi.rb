@@ -1,6 +1,17 @@
 module RBEDI
-  @@files = [] # All gem files
-  @@exe = [] # All executables
+  @@files = [
+    "codes.rb",
+    "codes/codeset.rb",
+    "edi_date_time.rb",
+    "functional_group.rb",
+    "parser.rb",
+    "segment.rb",
+    "transaction_envelope.rb",
+    "transaction_set.rb",
+  ]
+  @@files += Dir.glob("lib/rbedi/codes/*").map {|i| i.delete_prefix("lib/rbedi")}
+  @@files.uniq!
+  @@exe = []
 
   def self.version
     "0.0.0"
@@ -24,7 +35,7 @@ module RBEDI
 end
 
 # Additional Requires
-
+require "date"
 
 RBEDI.file_paths(relative:true).each do |f|
   require_relative f
