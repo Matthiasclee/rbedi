@@ -14,6 +14,7 @@ module RBEDI
         codes = self::CODES[pos]
 
         return nil unless codes
+        return nil unless code
 
         if code.is_a?(String)
           codes[code.downcase]

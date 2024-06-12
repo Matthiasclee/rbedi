@@ -9,7 +9,14 @@ module RBEDI
         @codes_class = nil
       end
 
-      @segment_elements = segment_elements
+      if segment_elements.is_a?(Hash)
+        @segment_elements = []
+        segment_elements.each do |k, v|
+          self[k] = v
+        end
+      else
+        @segment_elements = segment_elements
+      end
     end
 
     def to_s
