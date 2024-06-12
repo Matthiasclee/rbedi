@@ -13,7 +13,7 @@ module RBEDI
     end
 
     def to_s
-      @segment_elements.insert(0, @segment_name).join(Codes::ELEMENT_SEPARATOR) + Codes::SEGMENT_TERMINATOR
+      ([@segment_name] + @segment_elements).join(Codes::ELEMENT_SEPARATOR) + Codes::SEGMENT_TERMINATOR
     end
 
     def [](element)
