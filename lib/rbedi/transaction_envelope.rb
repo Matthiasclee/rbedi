@@ -45,7 +45,7 @@ module RBEDI
         :interchange_control_header,
         authorization_information_qualifier: @authorization_information_qualifier,
         authorization_information: @authorization_information,
-        security_information_qualifier: @security_information,
+        security_information_qualifier: @security_information_qualifier,
         security_information: @security_information,
         interchange_sender_id_qualifier: @interchange_sender_id_qualifier,
         interchange_receiver_id_qualifier: @interchange_receiver_id_qualifier,
