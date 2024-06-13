@@ -5,7 +5,7 @@ module RBEDI
     def initialize(
       transaction_set_control_number:,
       segments: [],
-      transaction_set_identifier: ELIGIBILITY_REQUEST_TRANSACTION_SET
+      transaction_set_identifier:,
     )
       @transaction_set_control_number = "%04d" % transaction_set_control_number
       @transaction_set_identifier = transaction_set_identifier

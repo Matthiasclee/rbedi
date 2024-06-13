@@ -6,6 +6,7 @@ module RBEDI
         "IEA" => :interchange_control_trailer,
         "GS" => :functional_group_header,
         "GE" => :functional_group_trailer,
+        "ST" => :transaction_set_header,
       }
       
       def self.segment_name(segment)
