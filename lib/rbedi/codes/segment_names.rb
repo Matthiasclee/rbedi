@@ -13,6 +13,7 @@ module RBEDI
         "NM1" => :individual_or_organization_name,
         "TRN" => :trace,
         "REF" => :reference_information,
+        "DTP" => :date_time_period,
       }
       
       def self.segment_name(segment)
