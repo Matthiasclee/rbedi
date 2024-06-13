@@ -12,6 +12,7 @@ module RBEDI
         "HL" => :heirarchial_level,
         "NM1" => :individual_or_organization_name,
         "TRN" => :trace,
+        "REF" => :reference_information,
       }
       
       def self.segment_name(segment)
