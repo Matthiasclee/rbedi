@@ -8,6 +8,7 @@ module RBEDI
         "GE" => :functional_group_trailer,
         "ST" => :transaction_set_header,
         "SE" => :transaction_set_trailer,
+        "BHT" => :begin_heirarchial_transaction,
       }
       
       def self.segment_name(segment)
