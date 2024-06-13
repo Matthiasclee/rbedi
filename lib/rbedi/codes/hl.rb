@@ -204,7 +204,7 @@ module RBEDI
           "ph" => :product_characteristic,
           "pi" => :property_identification,
           "pk" => :property_tax,
-          "pl" => :primary_specification__lift_leveldesignates_the_hierarchical_level_detailing_specifications_of_the_largest_unitized_configuration_to_be_handled_mechanically_in_warehouseshop_floor_applications_"primary"_indicates_preferred_or_mandatory_and_all_subsequent_"hl"_segments_contain_specifications_of_upper_or_interior_levels_of_the_lift_level_as_required,
+          "pl" => :primary_specification__lift_leveldesignates_the_hierarchical_level_detailing_specifications_of_the_largest_unitized_configuration_to_be_handled_mechanically_in_warehouseshop_floor_applications_primary_indicates_preferred_or_mandatory_and_all_subsequent_hl_segments_contain_specifications_of_upper_or_interior_levels_of_the_lift_level_as_required,
           "pp" => :related_parties,
           "pr" => :principalan_entity_granting_authority_to_another_to_act_in_its_behalf_such_as_a_lobbyists_principal_or_an_entity_granting_power_of_attorney,
           "ps" => :property_segment_group,
