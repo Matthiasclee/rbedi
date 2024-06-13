@@ -35,6 +35,9 @@ module RBEDI
       return set_raw_element(element, value) unless @codes_class
 
       element = get_element_pos(element)
+
+      return set_raw_element(element, value) if value.is_a?(String)
+
       code = @codes_class.code(element, value)
 
       set_raw_element(element, code.nil? ? value : code)
