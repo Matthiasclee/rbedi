@@ -5,10 +5,10 @@ module RBEDI
     def initialize(
       transaction_set_control_number:,
       segments: [],
-      transaction_set_identifier:,
+      transaction_set_identifier_code:,
     )
       @transaction_set_control_number = "%04d" % transaction_set_control_number
-      @transaction_set_identifier = transaction_set_identifier
+      @transaction_set_identifier_code = transaction_set_identifier_code
       @segments = segments
     end
 
@@ -20,36 +20,21 @@ module RBEDI
 
     def header
       Segment.new(
-        TRANSACTION_SET_HEADER_SEGMENT_NAME,
-        header_elements
+        :transaction_set_header,
+        transaction_set_identifier_code: @transaction_set_identifier_code,
+        transaction_set_control_number: @transaction_set_control_number,
+        implementation_convention_reference: Codes::VERSION_CODE
       )
     end
 
     def trailer
       Segment.new(
-        TRANSACTION_SET_TRAILER_SEGMENT_NAME,
-        trailer_elements
+        :transaction_set_trailer,
+        segments_count: @segments.length + 2,
+        transaction_set_control_number: @transaction_set_control_number
       )
     end
 
-    attr_reader :transaction_set_control_number, :transaction_set_identifier
-    attr_accessor :segments
-
-    private
-
-    def header_elements
-      [
-        @transaction_set_identifier,
-        @transaction_set_control_number,
-        VERSION_CODE,
-      ]
-    end
-
-    def trailer_elements
-      [
-        @segments.length + 2,
-        @transaction_set_control_number,
-      ]
-    end
+    attr_accessor :transaction_set_control_number, :transaction_set_identifier_code, :segments
   end
 end

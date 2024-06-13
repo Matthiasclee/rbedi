@@ -7,6 +7,7 @@ module RBEDI
         "GS" => :functional_group_header,
         "GE" => :functional_group_trailer,
         "ST" => :transaction_set_header,
+        "SE" => :transaction_set_trailer,
       }
       
       def self.segment_name(segment)

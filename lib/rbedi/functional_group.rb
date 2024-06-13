@@ -10,7 +10,7 @@ module RBEDI
       date_time: DateTime.now,
       transaction_sets: []
     )
-      @group_control_number = group_control_number
+      @group_control_number = group_control_number.to_s
       @functional_identifier_code = functional_identifier_code
       @application_sender_code = application_sender_code
       @application_receiver_code = application_receiver_code
