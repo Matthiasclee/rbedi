@@ -1,1 +1,1 @@
-[asd](segments/b.md)
+[asd](docs/segments/b.md)
