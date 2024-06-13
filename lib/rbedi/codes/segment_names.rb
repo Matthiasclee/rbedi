@@ -14,7 +14,8 @@ module RBEDI
         "TRN" => :trace,
         "REF" => :reference_information,
         "DTP" => :date_time_period,
-        "EQ" => :eligibility_or_benefit_inquiry
+        "EQ" => :eligibility_or_benefit_inquiry,
+        "EB" => :eligibility_or_benefit_information,
       }
       
       def self.segment_name(segment)
