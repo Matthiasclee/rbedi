@@ -48,7 +48,7 @@ end
 
 def element_codes_list_item(code, symbol)
 <<EOF
-* `#{code}` - `:#{symbol}`
+* `#{code}` - `#{symbol.is_a?(Symbol) ? ":#{symbol}" : symbol}`
 EOF
 end
 
