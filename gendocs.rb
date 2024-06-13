@@ -18,7 +18,7 @@ end
 
 def segment_list_item(segment_code, segment_symbol)
 <<EOF
-* [`#{segment_code}` - `:#{segment_symbol}`](#{segment_docs_path(segment_code)})
+* `#{segment_code}` - [`:#{segment_symbol}`](#{segment_docs_path(segment_code)})
 EOF
 end
 
@@ -31,7 +31,7 @@ end
 def segment_element_list_item(element_position, element_symbol, segment_code, codes_count)
   unless codes_count.nil?
 <<EOF
-* [#{element_position}: `:#{element_symbol}` - #{codes_count} codes](#{element_codes_path(segment_code, element_position)})
+* #{element_position}: `:#{element_symbol}` - [#{codes_count} codes](#{element_codes_path(segment_code, element_position)})
 EOF
   else
 <<EOF
