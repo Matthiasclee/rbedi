@@ -11,6 +11,7 @@ module RBEDI
         "BHT" => :begin_heirarchial_transaction,
         "HL" => :heirarchial_level,
         "NM1" => :individual_or_organization_name,
+        "TRN" => :trace,
       }
       
       def self.segment_name(segment)
