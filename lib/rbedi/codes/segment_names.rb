@@ -9,6 +9,7 @@ module RBEDI
         "ST" => :transaction_set_header,
         "SE" => :transaction_set_trailer,
         "BHT" => :begin_heirarchial_transaction,
+        "HL" => :heirarchial_level,
       }
       
       def self.segment_name(segment)
