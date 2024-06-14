@@ -9,6 +9,7 @@
 * `HL` - [`:heirarchial_level`](segments/HL.md)
 * `NM1` - [`:individual_or_organization_name`](segments/NM1.md)
 * `TRN` - [`:trace`](segments/TRN.md)
+* `DMG` - [`:demographic_information`](segments/DMG.md)
 * `REF` - [`:reference_information`](segments/REF.md)
 * `DTP` - [`:date_time_period`](segments/DTP.md)
 * `EQ` - [`:eligibility_or_benefit_inquiry`](segments/EQ.md)
