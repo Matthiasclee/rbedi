@@ -34,13 +34,15 @@ module RBEDI
     def []=(element, value)
       return set_raw_element(element, value) unless @codes_class
 
-      element = get_element_pos(element)
+      element_pos = get_element_pos(element)
 
-      return set_raw_element(element, value) if value.is_a?(String)
+      raise NonExistentElementError, "Element `#{element}' does not exist for segment `#{raw_segment_name}'" unless element_pos
 
-      code = @codes_class.code(element, value)
+      return set_raw_element(element_pos, value) if value.is_a?(String)
 
-      set_raw_element(element, code.nil? ? value : code)
+      code = @codes_class.code(element_pos, value)
+
+      set_raw_element(element_pos, code.nil? ? value : code)
     end
 
     def segment_type

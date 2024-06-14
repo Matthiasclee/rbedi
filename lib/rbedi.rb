@@ -8,6 +8,7 @@ module RBEDI
     "segment.rb",
     "transaction_envelope.rb",
     "transaction_set.rb",
+    "non_existent_element_error.rb",
   ]
   @@files += Dir.glob("lib/rbedi/codes/*").map {|i| i.delete_prefix("lib/rbedi")}
   @@files.uniq!
