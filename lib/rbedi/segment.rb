@@ -1,6 +1,6 @@
 module RBEDI
   class Segment
-    def initialize(segment_name, segment_elements)
+    def initialize(segment_name, segment_elements = [])
       @segment_name = get_raw_segment_name(segment_name)
 
       begin
@@ -46,7 +46,7 @@ module RBEDI
     end
 
     def segment_type
-      Codes::SegmentNames.segment_name(raw_segment_name)
+      Codes::SegmentNames.segment_name(raw_segment_name) || raw_segment_name
     end
 
     def raw_segment_name

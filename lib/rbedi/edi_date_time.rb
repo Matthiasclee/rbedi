@@ -7,8 +7,13 @@ module RBEDI
     DEFAULT_OFFSET = DateTime.now.strftime("%z")
 
     def initialize(datetime_start, datetime_end = nil)
-      @datetime_start = datetime_start
-      @datetime_end = datetime_end
+      if datetime_start.is_a?(EDIDateTime)
+        @datetime_start = datetime_start.datetime_start
+        @datetime_end = datetime_start.datetime_end
+      else
+        @datetime_start = datetime_start
+        @datetime_end = datetime_end
+      end
     end
 
     def self.now

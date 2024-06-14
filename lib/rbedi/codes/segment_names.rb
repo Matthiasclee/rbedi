@@ -23,7 +23,7 @@ module RBEDI
         if segment.is_a?(Symbol)
           SEGMENT_NAMES.key(segment)
         else
-          SEGMENT_NAMES[segment].upcase
+          SEGMENT_NAMES[segment]
         end
       end
     end

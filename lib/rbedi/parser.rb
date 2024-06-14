@@ -22,30 +22,30 @@ module RBEDI
       current_transaction_set = nil
 
       segments.each do |segment|
-        if segment.segment_name == INTERCHANGE_CONTROL_HEADER_SEGMENT_NAME
+        if segment.segment_type == :interchange_control_header
           transaction_envelope = generate_transaction_envelope(segment)
           next
         end
 
-        break if segment.segment_name == INTERCHANGE_CONTROL_HEADER_SEGMENT_NAME
+        break if segment.segment_type == :interchange_control_trailer
 
-        if segment.segment_name == FUNCTIONAL_GROUP_HEADER_SEGMENT_NAME
+        if segment.segment_type == :functional_group_header
           current_functional_group = generate_functional_group(segment)
           next
         end
 
-        if segment.segment_name == FUNCTIONAL_GROUP_TRAILER_SEGMENT_NAME
+        if segment.segment_type == :functional_group_trailer
           transaction_envelope.functional_groups << current_functional_group
           current_functional_group = nil
           next
         end
 
-        if segment.segment_name == TRANSACTION_SET_HEADER_SEGMENT_NAME
+        if segment.segment_type == :transaction_set_header
           current_transaction_set = generate_transaction_set(segment)
           next
         end
 
-        if segment.segment_name == TRANSACTION_SET_TRAILER_SEGMENT_NAME
+        if segment.segment_type == :transaction_set_trailer
           current_functional_group.transaction_sets << current_transaction_set
           current_transaction_set = nil
           next
