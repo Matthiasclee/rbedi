@@ -79,4 +79,4 @@
 * `0402` - `:credential_action_ap_companycorporation_35_quantity_r_transportation_equipment_e_jurisdiction_ju_payment_detail_py`
 * `0403` - `:credential_action_ap_companycorporation_35_quantity_r_transportation_equipment_e_payment_detail_py`
 * `0407` - `:credential_action_ap_companycorporation_35_transportation_equipment_e_component_f_measurement_m_jurisdiction_ju_payment_detail_py`
-* `zzzz` - `:mutually_defined`
+* `ZZZZ` - `:mutually_defined`

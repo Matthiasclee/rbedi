@@ -36,4 +36,4 @@
 * `35` - `:week`
 * `36` - `:admission`
 * `37` - `:three_months`
-* `z` - `:mutually_defined`
+* `Z` - `:mutually_defined`
