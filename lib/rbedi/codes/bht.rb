@@ -4,7 +4,7 @@ module RBEDI
       extend CodeSet
 
       SEGMENT_POSITIONS = {
-        1 => :heirarchial_stucture_code,
+        1 => :heirarchial_structure_code,
         2 => :transaction_set_purpose_code,
         3 => :reference_identification,
         4 => :date,

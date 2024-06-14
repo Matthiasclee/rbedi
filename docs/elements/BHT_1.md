@@ -1,4 +1,4 @@
-# Codes for BHT_1 - heirarchial_stucture_code
+# Codes for BHT_1 - heirarchial_structure_code
 * `0001` - `:shipment_order_packaging_item`
 * `0002` - `:shipment_order_item_packaging`
 * `0003` - `:shipment_packaging_order_item`
