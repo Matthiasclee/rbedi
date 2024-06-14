@@ -28,14 +28,14 @@ module RBEDI
       start_date, end_date = date.split("-")
       start_time, end_time = time.split("-")
 
-      if start_date.blank?
+      if start_date.nil? || start_date.empty?
         date_strftime = ""
       else
         date_strftime = CCYYMMDD_STRFTIME if start_date.length == 8
         date_strftime = YYMMDD_STRFTIME if start_date.length == 6
       end
 
-      if start_time.blank?
+      if start_time.nil? || start_time.empty?
         time_strftime = ""
       else
         time_strftime = HHMMSS_STRFTIME if start_time.length == 6

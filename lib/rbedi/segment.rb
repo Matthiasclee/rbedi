@@ -26,9 +26,12 @@ module RBEDI
     def [](element)
       return get_raw_element(element) unless @codes_class
 
-      element = get_element_pos(element)
-      code = @codes_class.code(element, get_raw_element(element))
-      code.nil? ? get_raw_element(element) : code
+      element_pos = get_element_pos(element)
+
+      raise NonExistentElementError, "Element `#{element}' does not exist for segment `#{raw_segment_name}'" unless element_pos
+
+      code = @codes_class.code(element_pos, get_raw_element(element_pos))
+      code.nil? ? get_raw_element(element_pos) : code
     end
 
     def []=(element, value)

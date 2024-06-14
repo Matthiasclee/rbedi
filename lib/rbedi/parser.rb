@@ -1,7 +1,5 @@
 module RBEDI
   class Parser
-    include Codes
-
     def initialize(edi_data, fragment: false)
       @edi_data = edi_data
       @fragment = fragment
@@ -59,36 +57,42 @@ module RBEDI
 
     def generate_transaction_set(segment)
       TransactionSet.new(
-        transaction_set_control_number: segment[1].to_i,
-        transaction_set_identifier: segment[0]
+        transaction_set_control_number: segment[:transaction_set_control_number].to_i,
+        transaction_set_identifier_code: segment[:transaction_set_identifier_code]
       )
     end
 
     def generate_functional_group(segment)
       FunctionalGroup.new(
-        group_control_number: segment[5].to_i,
-        functional_identifier_code: segment[0],
-        submitter_id: segment[1].strip,
-        receiver_id: segment[2].strip,
-        date_time: EDIDateTime.parse(date: segment[3], time: segment[4]).datetime_start
+        group_control_number: segment[:group_control_number].to_i,
+        functional_identifier_code: segment[:functional_identifier_code],
+        application_sender_code: segment[:application_sender_code].strip,
+        application_receiver_code: segment[:application_receiver_code].strip,
+        date_time: EDIDateTime.parse(date: segment[:date], time: segment[:time]).datetime_start
       )
     end
 
     def generate_transaction_envelope(segment)
       TransactionEnvelope.new(
-        submitter_id: segment[5].strip,
-        receiver_id: segment[7].strip,
-        date_time: EDIDateTime.parse(date: segment[8], time: segment[9]).datetime_start,
-        repetition_separator: segment[10],
-        component_separator: segment[15],
-        acknowledgement_requested: segment[13] == ?1,
-        usage_indicator: segment[14],
-        interchange_control_number: segment[12].to_i
+        authorization_information_qualifier: segment[:authorization_information_qualifier],
+        authorization_information: segment[:authorization_information],
+        security_information_qualifier: segment[:security_information_qualifier],
+        security_information: segment[:security_information],
+        interchange_sender_id_qualifier: segment[:interchange_sender_id_qualifier],
+        interchange_sender_id: segment[:interchange_sender_id],
+        interchange_receiver_id_qualifier: segment[:interchange_receiver_id_qualifier],
+        interchange_receiver_id: segment[:interchange_receiver_id],
+        repetition_separator: segment[:repetition_separator],
+        interchange_control_number: segment[:interchange_control_number].to_i,
+        acknowledgement_requested: segment[:acknowledgement_requested],
+        interchange_usage_indicator: segment[:interchange_usage_indicator],
+        component_element_separator: segment[:component_element_separator],
+        date_time: EDIDateTime.parse(date: segment[:interchange_date], time: segment[:interchange_time]).datetime_start,
       )
     end
 
     def to_segments
-      segments = @edi_data.split(SEGMENT_TERMINATOR)
+      segments = @edi_data.split(Codes::SEGMENT_TERMINATOR)
       segments.map { |segment| Segment.parse(segment) }
     end
   end
