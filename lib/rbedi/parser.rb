@@ -8,7 +8,7 @@ module RBEDI
 
     def parse
       segments = to_segments
-      return segments if @fragment
+      return segments.map{|s|Segment.parse(s, separator: @separator)} if @fragment
 
       generate_transaction(segments)
     end
