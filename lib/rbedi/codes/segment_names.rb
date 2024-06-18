@@ -20,6 +20,7 @@ module RBEDI
         "AAA" => :request_validation,
         "AK1" => :functional_group_response_header,
         "AK9" => :functional_group_response_trailer,
+        "AK2" => :transaction_set_response_header,
       }
       
       def self.segment_name(segment)

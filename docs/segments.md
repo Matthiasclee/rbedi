@@ -17,3 +17,4 @@
 * `AAA` - [`:request_validation`](segments/AAA.md)
 * `AK1` - [`:functional_group_response_header`](segments/AK1.md)
 * `AK9` - [`:functional_group_response_trailer`](segments/AK9.md)
+* `AK2` - [`:transaction_set_response_header`](segments/AK2.md)
