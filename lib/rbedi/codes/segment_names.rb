@@ -8,6 +8,8 @@ module RBEDI
         "GE" => :functional_group_trailer,
         "ST" => :transaction_set_header,
         "SE" => :transaction_set_trailer,
+        "LS" => :loop_header,
+        "LE" => :loop_trailer,
         "BHT" => :begin_heirarchial_transaction,
         "HL" => :heirarchial_level,
         "NM1" => :individual_or_organization_name,
