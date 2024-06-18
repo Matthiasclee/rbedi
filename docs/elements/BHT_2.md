@@ -1,5 +1,5 @@
 # Codes for BHT02 - transaction_set_purpose_code
-[segments](../segments.md) > [BHT](../segments/BHT.md) > BHT02
+[Segments](../segments.md) > [BHT](../segments/BHT.md) > BHT02
 * `00` - `:original`
 * `01` - `:cancellation`
 * `02` - `:add`

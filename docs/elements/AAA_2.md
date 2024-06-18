@@ -1,5 +1,5 @@
 # Codes for AAA02 - agency_qualifier_code
-[segments](../segments.md) > [AAA](../segments/AAA.md) > AAA02
+[Segments](../segments.md) > [AAA](../segments/AAA.md) > AAA02
 * `10` - `:alabama`
 * `11` - `:alaska`
 * `12` - `:arizona`

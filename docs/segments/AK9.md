@@ -1,5 +1,5 @@
 # Elements for AK9 - functional_group_response_trailer
-[segments](../segments.md) > AK9
+[Segments](../segments.md) > AK9
 * 1: `:functional_group_acknowledgement_code` - [7 codes](../elements/AK9_1.md)
 * 2: `:included_transaction_sets_count` - no codes
 * 3: `:received_transaction_sets_count` - no codes

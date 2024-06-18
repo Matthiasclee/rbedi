@@ -1,5 +1,5 @@
 # Codes for EB01 - eligibility_or_benefit_information
-[segments](../segments.md) > [EB](../segments/EB.md) > EB01
+[Segments](../segments.md) > [EB](../segments/EB.md) > EB01
 * `1` - `:active_coverage`
 * `2` - `:active__full_risk_capitation`
 * `3` - `:active__services_capitated`

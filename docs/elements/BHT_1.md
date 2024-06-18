@@ -1,5 +1,5 @@
 # Codes for BHT01 - heirarchial_structure_code
-[segments](../segments.md) > [BHT](../segments/BHT.md) > BHT01
+[Segments](../segments.md) > [BHT](../segments/BHT.md) > BHT01
 * `0001` - `:shipment_order_packaging_item`
 * `0002` - `:shipment_order_item_packaging`
 * `0003` - `:shipment_packaging_order_item`

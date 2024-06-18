@@ -1,5 +1,5 @@
 # Codes for DMG04 - marital_status_code
-[segments](../segments.md) > [DMG](../segments/DMG.md) > DMG04
+[Segments](../segments.md) > [DMG](../segments/DMG.md) > DMG04
 * `A` - `:common_law`
 * `B` - `:registered_domestic_partner`
 * `C` - `:not_applicable`

@@ -1,5 +1,5 @@
 # Codes for BHT06 - transaction_type_code
-[segments](../segments.md) > [BHT](../segments/BHT.md) > BHT06
+[Segments](../segments.md) > [BHT](../segments/BHT.md) > BHT06
 * `01` - `:location_address_messageunrelated_addresses_of_business_locations`
 * `1A` - `:unique_item_tracking_control_report`
 * `1B` - `:unique_item_tracking_report_reconciliation`

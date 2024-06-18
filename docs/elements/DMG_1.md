@@ -1,5 +1,5 @@
 # Codes for DMG01 - date_time_period_format_qualifier
-[segments](../segments.md) > [DMG](../segments/DMG.md) > DMG01
+[Segments](../segments.md) > [DMG](../segments/DMG.md) > DMG01
 * `CC` - `:first_two_digits_of_year_expressed_in_format_ccyythe_first_two_characters_in_the_year_ccyy`
 * `CD` - `:month_and_year_expressed_in_format_mmmyyyydate_expressed_as_month_month_month_all_upper_case_alpha_and_year_year_year_year_eg_jan_1994_feb_1994_etc`
 * `CM` - `:date_in_format_ccyymm`

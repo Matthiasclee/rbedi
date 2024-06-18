@@ -1,5 +1,5 @@
 # Codes for HL03 - heirarchial_level_code
-[segments](../segments.md) > [HL](../segments/HL.md) > HL03
+[Segments](../segments.md) > [HL](../segments/HL.md) > HL03
 * `0` - `:region`
 * `1` - `:servicebilling_providercode_identifying_the_telecommunications_company_providing_servicebilling`
 * `2` - `:billing_arrangementcode_identifying_a_specified_billing_arrangement`

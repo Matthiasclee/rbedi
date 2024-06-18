@@ -1,5 +1,5 @@
 # Elements for IK5 - implementation_transaction_set_response_trailer
-[segments](../segments.md) > IK5
+[Segments](../segments.md) > IK5
 * 1: `:transaction_set_acknowledgement_code` - [6 codes](../elements/IK5_1.md)
 * 2: `:implementation_transaction_set_syntax_error_code_1` - [25 codes](../elements/IK5_2.md)
 * 3: `:implementation_transaction_set_syntax_error_code_2` - [25 codes](../elements/IK5_3.md)

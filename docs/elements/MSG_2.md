@@ -1,5 +1,5 @@
 # Codes for MSG02 - printer_carriage_control_code
-[segments](../segments.md) > [MSG](../segments/MSG.md) > MSG02
+[Segments](../segments.md) > [MSG](../segments/MSG.md) > MSG02
 * `AA` - `:advance_the_specified_number_of_lines_before_print`
 * `AT` - `:advanced_three_lines_before_print`
 * `DS` - `:advance_two_lines_before_print`

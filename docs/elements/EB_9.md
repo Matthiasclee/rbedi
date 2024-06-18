@@ -1,5 +1,5 @@
 # Codes for EB09 - quantity_qualifier
-[segments](../segments.md) > [EB](../segments/EB.md) > EB09
+[Segments](../segments.md) > [EB](../segments/EB.md) > EB09
 * `00` - `:hospitalhomebound_individualsa_type_of_disability_defined_by_the_federal_individuals_with_disabilities_education_act_idea`
 * `0A` - `:number_of_hours_per_day`
 * `0B` - `:number_of_hours_per_week`

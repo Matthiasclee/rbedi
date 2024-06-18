@@ -1,5 +1,5 @@
 # Elements for GS - functional_group_header
-[segments](../segments.md) > GS
+[Segments](../segments.md) > GS
 * 1: `:functional_identifier_code` - [260 codes](../elements/GS_1.md)
 * 2: `:application_sender_code` - no codes
 * 3: `:application_receiver_code` - no codes

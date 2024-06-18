@@ -1,5 +1,5 @@
 # Codes for DTP01 - date_time_qualifier
-[segments](../segments.md) > [DTP](../segments/DTP.md) > DTP01
+[Segments](../segments.md) > [DTP](../segments/DTP.md) > DTP01
 * `001` - `:cancel_after`
 * `002` - `:delivery_requested`
 * `003` - `:invoice`

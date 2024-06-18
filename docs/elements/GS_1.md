@@ -1,5 +1,5 @@
 # Codes for GS01 - functional_identifier_code
-[segments](../segments.md) > [GS](../segments/GS.md) > GS01
+[Segments](../segments.md) > [GS](../segments/GS.md) > GS01
 * `AA` - `:account_analysis_822`
 * `AB` - `:logistics_service_request_219`
 * `AC` - `:associated_data_102`

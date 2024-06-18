@@ -1,5 +1,5 @@
 # Codes for DMG07 - country_code
-[segments](../segments.md) > [DMG](../segments/DMG.md) > DMG07
+[Segments](../segments.md) > [DMG](../segments/DMG.md) > DMG07
 * `ABW` - `:aruba`
 * `AD` - `:andorra`
 * `AE` - `:united_arab_emirates_the`

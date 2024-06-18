@@ -1,5 +1,5 @@
 # Codes for EB02 - coverage_level_code
-[segments](../segments.md) > [EB](../segments/EB.md) > EB02
+[Segments](../segments.md) > [EB](../segments/EB.md) > EB02
 * `CHD` - `:children_only`
 * `DEP` - `:dependents_only`
 * `E1D` - `:employee_and_one_dependent`

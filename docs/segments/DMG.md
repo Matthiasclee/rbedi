@@ -1,5 +1,5 @@
 # Elements for DMG - demographic_information
-[segments](../segments.md) > DMG
+[Segments](../segments.md) > DMG
 * 1: `:date_time_period_format_qualifier` - [42 codes](../elements/DMG_1.md)
 * 2: `:date_time_period` - no codes
 * 3: `:gender_code` - [7 codes](../elements/DMG_3.md)

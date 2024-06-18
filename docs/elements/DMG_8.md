@@ -1,5 +1,5 @@
 # Codes for DMG08 - basis_of_verification_code
-[segments](../segments.md) > [DMG](../segments/DMG.md) > DMG08
+[Segments](../segments.md) > [DMG](../segments/DMG.md) > DMG08
 * `1` - `:birth_certificate`
 * `2` - `:passport`
 * `3` - `:hospital_certificate`

@@ -1,5 +1,5 @@
 # Codes for DMG06 - citizenship_status_code
-[segments](../segments.md) > [DMG](../segments/DMG.md) > DMG06
+[Segments](../segments.md) > [DMG](../segments/DMG.md) > DMG06
 * `1` - `:us_citizen`
 * `2` - `:nonresident_alien`
 * `3` - `:resident_alien`
