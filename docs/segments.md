@@ -15,4 +15,5 @@
 * `EQ` - [`:eligibility_or_benefit_inquiry`](segments/EQ.md)
 * `EB` - [`:eligibility_or_benefit_information`](segments/EB.md)
 * `AAA` - [`:request_validation`](segments/AAA.md)
+* `AK1` - [`:functional_group_response_header`](segments/AK1.md)
 * `AK9` - [`:functional_group_response_trailer`](segments/AK9.md)

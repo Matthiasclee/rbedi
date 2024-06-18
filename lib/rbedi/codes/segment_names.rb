@@ -18,6 +18,7 @@ module RBEDI
         "EQ" => :eligibility_or_benefit_inquiry,
         "EB" => :eligibility_or_benefit_information,
         "AAA" => :request_validation,
+        "AK1" => :functional_group_response_header,
         "AK9" => :functional_group_response_trailer,
       }
       
