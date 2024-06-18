@@ -32,13 +32,13 @@ module RBEDI
       raw_element = get_raw_element(element_pos)
 
       if @separator
-        raw_element = raw_element.split(@separator)
-        raw_element.map! do |i|
+        raw_element_arr = raw_element.split(@separator)
+        raw_element_arr.map! do |i|
           c = @codes_class.code(element_pos, i)
           c.nil? ? i : c
         end
 
-        return raw_element unless raw_element.length == 1
+        return raw_element_arr unless raw_element_arr.length == 1
       end
 
       code.nil? ? raw_element : code
