@@ -13,6 +13,8 @@ module RBEDI
         "BHT" => :begin_heirarchial_transaction,
         "HL" => :heirarchial_level,
         "NM1" => :individual_or_organization_name,
+        "N3" => :party_location,
+        "N4" => :geographic_location,
         "TRN" => :trace,
         "MSG" => :message_text,
         "DMG" => :demographic_information,
