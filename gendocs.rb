@@ -8,6 +8,10 @@ def segments_docs_path
   "docs/segments.md"
 end
 
+def segments_docs_readme_path
+  "docs/segments/readme.md"
+end
+
 def segment_docs_path(segment_code, relative=true)
   relative ? "segments/#{segment_code}.md" : "docs/segments/#{segment_code}.md"
 end
@@ -73,3 +77,5 @@ RBEDI::Codes::SegmentNames::SEGMENT_NAMES.each do |segment_code, segment_symbol|
     end
   end
 end
+
+File.write(segments_docs_readme_path, File.read(segments_docs_path))
