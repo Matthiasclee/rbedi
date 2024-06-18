@@ -1,4 +1,4 @@
-# Codes for DTP_1 - date_time_qualifier
+# Codes for DTP01 - date_time_qualifier
 * `001` - `:cancel_after`
 * `002` - `:delivery_requested`
 * `003` - `:invoice`

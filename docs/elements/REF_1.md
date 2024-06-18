@@ -1,4 +1,4 @@
-# Codes for REF_1 - reference_identification_qualifier
+# Codes for REF01 - reference_identification_qualifier
 * `00` - `:contracting_district_number`
 * `0A` - `:supervisory_appraiser_certification_number`
 * `0B` - `:state_license_number`

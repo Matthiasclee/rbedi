@@ -1,4 +1,4 @@
-# Codes for DMG_7 - country_code
+# Codes for DMG07 - country_code
 * `ABW` - `:aruba`
 * `AD` - `:andorra`
 * `AE` - `:united_arab_emirates_the`

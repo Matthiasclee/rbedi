@@ -1,4 +1,4 @@
-# Codes for ISA_7 - interchange_receiver_id_qualifier
+# Codes for ISA07 - interchange_receiver_id_qualifier
 * `01` - `:duns_dun_and_bradstreet`
 * `02` - `:scac_standard_carrier_alpha_code`
 * `03` - `:fmc_federal_maritime_commission`

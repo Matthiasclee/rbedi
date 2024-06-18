@@ -1,4 +1,4 @@
-# Codes for EB_9 - quantity_qualifier
+# Codes for EB09 - quantity_qualifier
 * `00` - `:hospitalhomebound_individualsa_type_of_disability_defined_by_the_federal_individuals_with_disabilities_education_act_idea`
 * `0A` - `:number_of_hours_per_day`
 * `0B` - `:number_of_hours_per_week`

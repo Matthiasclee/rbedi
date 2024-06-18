@@ -42,7 +42,7 @@ end
 
 def element_codes_list_heading(segment_code, element_position, element_symbol)
 <<EOF
-# Codes for #{segment_code}_#{element_position} - #{element_symbol}
+# Codes for #{segment_code}#{"%02d" % element_position} - #{element_symbol}
 EOF
 end
 

@@ -1,4 +1,4 @@
-# Codes for BHT_2 - transaction_set_purpose_code
+# Codes for BHT02 - transaction_set_purpose_code
 * `00` - `:original`
 * `01` - `:cancellation`
 * `02` - `:add`

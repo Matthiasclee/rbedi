@@ -1,4 +1,4 @@
-# Codes for ISA_1 - authorization_information_qualifier
+# Codes for ISA01 - authorization_information_qualifier
 * `00` - `:no_authorization_information_present`
 * `01` - `:ucs_communications_id`
 * `02` - `:edx_communications_id`

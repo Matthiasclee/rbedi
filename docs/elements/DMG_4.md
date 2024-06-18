@@ -1,4 +1,4 @@
-# Codes for DMG_4 - marital_status_code
+# Codes for DMG04 - marital_status_code
 * `A` - `:common_law`
 * `B` - `:registered_domestic_partner`
 * `C` - `:not_applicable`

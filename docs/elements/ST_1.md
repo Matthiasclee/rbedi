@@ -1,4 +1,4 @@
-# Codes for ST_1 - transaction_set_identifier_code
+# Codes for ST01 - transaction_set_identifier_code
 * `100` - `:insurance_plan_description`
 * `101` - `:name_and_address_lists`
 * `102` - `:associated_data`

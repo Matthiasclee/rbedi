@@ -1,4 +1,4 @@
-# Codes for DMG_8 - basis_of_verification_code
+# Codes for DMG08 - basis_of_verification_code
 * `1` - `:birth_certificate`
 * `2` - `:passport`
 * `3` - `:hospital_certificate`

@@ -1,4 +1,4 @@
-# Codes for ISA_15 - interchange_usage_indicator
+# Codes for ISA15 - interchange_usage_indicator
 * `I` - `:information`
 * `P` - `:production`
 * `T` - `:test`

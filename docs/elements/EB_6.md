@@ -1,4 +1,4 @@
-# Codes for EB_6 - time_period_qualifier
+# Codes for EB06 - time_period_qualifier
 * `1` - `:chargeable_periods`
 * `2` - `:periods_held`
 * `3` - `:free_periods`

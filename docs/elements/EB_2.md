@@ -1,4 +1,4 @@
-# Codes for EB_2 - coverage_level_code
+# Codes for EB02 - coverage_level_code
 * `CHD` - `:children_only`
 * `DEP` - `:dependents_only`
 * `E1D` - `:employee_and_one_dependent`

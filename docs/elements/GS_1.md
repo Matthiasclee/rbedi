@@ -1,4 +1,4 @@
-# Codes for GS_1 - functional_identifier_code
+# Codes for GS01 - functional_identifier_code
 * `AA` - `:account_analysis_822`
 * `AB` - `:logistics_service_request_219`
 * `AC` - `:associated_data_102`

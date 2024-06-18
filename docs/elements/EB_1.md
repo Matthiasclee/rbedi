@@ -1,4 +1,4 @@
-# Codes for EB_1 - eligibility_or_benefit_information
+# Codes for EB01 - eligibility_or_benefit_information
 * `1` - `:active_coverage`
 * `2` - `:active__full_risk_capitation`
 * `3` - `:active__services_capitated`

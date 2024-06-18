@@ -1,4 +1,4 @@
-# Codes for EQ_1 - service_type_code
+# Codes for EQ01 - service_type_code
 * `1` - `:medical_care`
 * `2` - `:surgical`
 * `3` - `:consultation`

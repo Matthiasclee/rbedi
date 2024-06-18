@@ -1,4 +1,4 @@
-# Codes for BHT_6 - transaction_type_code
+# Codes for BHT06 - transaction_type_code
 * `01` - `:location_address_messageunrelated_addresses_of_business_locations`
 * `1A` - `:unique_item_tracking_control_report`
 * `1B` - `:unique_item_tracking_report_reconciliation`
