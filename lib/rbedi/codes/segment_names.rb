@@ -12,6 +12,7 @@ module RBEDI
         "HL" => :heirarchial_level,
         "NM1" => :individual_or_organization_name,
         "TRN" => :trace,
+        "MSG" => :message_text,
         "DMG" => :demographic_information,
         "REF" => :reference_information,
         "DTP" => :date_time_period,
