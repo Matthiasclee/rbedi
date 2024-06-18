@@ -18,6 +18,7 @@ module RBEDI
         "EQ" => :eligibility_or_benefit_inquiry,
         "EB" => :eligibility_or_benefit_information,
         "AAA" => :request_validation,
+        "AK9" => :functional_group_response_trailer,
       }
       
       def self.segment_name(segment)
