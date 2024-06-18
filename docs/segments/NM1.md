@@ -1,5 +1,5 @@
 # Elements for NM1 - individual_or_organization_name
-[segments](../segments.md)
+[segments](../segments.md) > NM1
 * 1: `:entity_identifier_code` - [1500 codes](../elements/NM1_1.md)
 * 2: `:entity_type_qualifier` - [16 codes](../elements/NM1_2.md)
 * 3: `:last_name_or_organization_name` - no codes

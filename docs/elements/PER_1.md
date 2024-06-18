@@ -1,4 +1,5 @@
 # Codes for PER01 - contact_function_code
+[segments](../segments.md) > [PER](../segments/PER.md) > PER01
 * `1A` - `:reviewrepricing_contact`
 * `1B` - `:preferred_provider_organization_ppo_contact`
 * `1C` - `:health_maintenance_organization_hmo_contact`

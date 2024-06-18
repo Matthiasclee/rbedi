@@ -1,4 +1,5 @@
 # Codes for EQ01 - service_type_code
+[segments](../segments.md) > [EQ](../segments/EQ.md) > EQ01
 * `1` - `:medical_care`
 * `2` - `:surgical`
 * `3` - `:consultation`

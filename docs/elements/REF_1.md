@@ -1,4 +1,5 @@
 # Codes for REF01 - reference_identification_qualifier
+[segments](../segments.md) > [REF](../segments/REF.md) > REF01
 * `00` - `:contracting_district_number`
 * `0A` - `:supervisory_appraiser_certification_number`
 * `0B` - `:state_license_number`

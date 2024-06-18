@@ -1,4 +1,5 @@
 # Codes for AAA04 - follow_up_action_code
+[segments](../segments.md) > [AAA](../segments/AAA.md) > AAA04
 * `C` - `:please_correct_and_resubmit`
 * `D` - `:resubmit_entire_claim`
 * `E` - `:resubmit_this_item_only`

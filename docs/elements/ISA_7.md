@@ -1,4 +1,5 @@
 # Codes for ISA07 - interchange_receiver_id_qualifier
+[segments](../segments.md) > [ISA](../segments/ISA.md) > ISA07
 * `01` - `:duns_dun_and_bradstreet`
 * `02` - `:scac_standard_carrier_alpha_code`
 * `03` - `:fmc_federal_maritime_commission`

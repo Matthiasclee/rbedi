@@ -1,4 +1,5 @@
 # Codes for EQ03 - coverage_level_code
+[segments](../segments.md) > [EQ](../segments/EQ.md) > EQ03
 * `CHD` - `:children_only`
 * `DEP` - `:dependents_only`
 * `E1D` - `:employee_and_one_dependent`

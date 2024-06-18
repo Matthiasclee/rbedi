@@ -1,4 +1,5 @@
 # Codes for EB04 - insurance_type_code
+[segments](../segments.md) > [EB](../segments/EB.md) > EB04
 * `12` - `:medicare_secondary_working_aged_beneficiary_or_spouse_with_employer_group_health_plan`
 * `13` - `:medicare_secondary_endstage_renal_disease_beneficiary_in_the_mandated_coordination_period_with_an_employers_group_health_plan`
 * `14` - `:medicare_secondary_nofault_insurance_including_auto_is_primary`

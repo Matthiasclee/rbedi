@@ -29,7 +29,7 @@ end
 def segment_elements_list_heading(segment_code, segment_symbol)
 <<EOF
 # Elements for #{segment_code} - #{segment_symbol}
-[segments](../segments.md)
+[segments](../segments.md) > #{segment_code}
 EOF
 end
 
@@ -46,8 +46,10 @@ EOF
 end
 
 def element_codes_list_heading(segment_code, element_position, element_symbol)
+  element_formatted = "#{segment_code}#{"%02d" % element_position}"
 <<EOF
-# Codes for #{segment_code}#{"%02d" % element_position} - #{element_symbol}
+# Codes for #{element_formatted} - #{element_symbol}
+[segments](../segments.md) > [#{segment_code}](../segments/#{segment_code}.md) > #{element_formatted}
 EOF
 end
 

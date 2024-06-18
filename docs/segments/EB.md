@@ -1,5 +1,5 @@
 # Elements for EB - eligibility_or_benefit_information
-[segments](../segments.md)
+[segments](../segments.md) > EB
 * 1: `:eligibility_or_benefit_information` - [39 codes](../elements/EB_1.md)
 * 2: `:coverage_level_code` - [25 codes](../elements/EB_2.md)
 * 3: `:service_type_code` - [190 codes](../elements/EB_3.md)

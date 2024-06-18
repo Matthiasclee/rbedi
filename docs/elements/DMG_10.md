@@ -1,4 +1,5 @@
 # Codes for DMG10 - industry_code_qualifier_code
+[segments](../segments.md) > [DMG](../segments/DMG.md) > DMG10
 * `0` - `:document_identification_codecodes_that_subclassify_a_transaction`
 * `1` - `:free_on_board_site_codethe_destination_site_where_the_seller_agrees_to_deliver_merchandise_on_board_the_conveyance_without_extra_charge`
 * `3` - `:kind_of_contract_codevarious_kinds_of_contracts_for_tailoring_reports`

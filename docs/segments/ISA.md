@@ -1,5 +1,5 @@
 # Elements for ISA - interchange_control_header
-[segments](../segments.md)
+[segments](../segments.md) > ISA
 * 1: `:authorization_information_qualifier` - [7 codes](../elements/ISA_1.md)
 * 2: `:authorization_information` - no codes
 * 3: `:security_information_qualifier` - [2 codes](../elements/ISA_3.md)

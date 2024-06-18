@@ -1,4 +1,5 @@
 # Codes for EB03 - service_type_code
+[segments](../segments.md) > [EB](../segments/EB.md) > EB03
 * `1` - `:medical_care`
 * `2` - `:surgical`
 * `3` - `:consultation`

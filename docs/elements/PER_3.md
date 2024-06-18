@@ -1,4 +1,5 @@
 # Codes for PER03 - communication_number_qualifier_1
+[segments](../segments.md) > [PER](../segments/PER.md) > PER03
 * `AA` - `:international_telephone_access_codedialing_code_required_to_call_another_country_in_addition_to_the_number`
 * `AB` - `:joint_facsimile_and_phone_number`
 * `AC` - `:message_only_voice_numbertelephone_number_which_provides_automated_messages_only`

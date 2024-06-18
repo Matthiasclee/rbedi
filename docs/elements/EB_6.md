@@ -1,4 +1,5 @@
 # Codes for EB06 - time_period_qualifier
+[segments](../segments.md) > [EB](../segments/EB.md) > EB06
 * `1` - `:chargeable_periods`
 * `2` - `:periods_held`
 * `3` - `:free_periods`

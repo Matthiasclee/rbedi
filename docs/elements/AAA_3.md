@@ -1,4 +1,5 @@
 # Codes for AAA03 - reject_reason_code
+[segments](../segments.md) > [AAA](../segments/AAA.md) > AAA03
 * `01` - `:price_authorization_invalid`
 * `02` - `:price_authorization_expired`
 * `03` - `:product_not_on_the_price_authorization`
