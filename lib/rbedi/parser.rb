@@ -1,8 +1,9 @@
 module RBEDI
   class Parser
-    def initialize(edi_data, fragment: false)
+    def initialize(edi_data, fragment: false, separator: nil)
       @edi_data = edi_data
       @fragment = fragment
+      @separator = separator
     end
 
     def parse
@@ -20,8 +21,11 @@ module RBEDI
       current_transaction_set = nil
 
       segments.each do |segment|
+        segment = Segment.parse(segment, separator: @separator)
+
         if segment.segment_type == :interchange_control_header
           transaction_envelope = generate_transaction_envelope(segment)
+          @separator = transaction_envelope.repetition_separator unless @separator
           next
         end
 
@@ -93,7 +97,6 @@ module RBEDI
 
     def to_segments
       segments = @edi_data.split(Codes::SEGMENT_TERMINATOR)
-      segments.map { |segment| Segment.parse(segment) }
     end
   end
 end
