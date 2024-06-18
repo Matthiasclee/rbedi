@@ -1,4 +1,5 @@
 # Elements for HL - heirarchial_level
+[segments](../segments.md)
 * 1: `:heirarchial_id_number` - no codes
 * 2: `:heirarchial_parent_id_number` - no codes
 * 3: `:heirarchial_level_code` - [250 codes](../elements/HL_3.md)

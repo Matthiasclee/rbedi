@@ -1,4 +1,5 @@
 # Elements for PER - administrative_communications_contact
+[segments](../segments.md)
 * 1: `:contact_function_code` - [238 codes](../elements/PER_1.md)
 * 2: `:name` - no codes
 * 3: `:communication_number_qualifier_1` - [42 codes](../elements/PER_3.md)

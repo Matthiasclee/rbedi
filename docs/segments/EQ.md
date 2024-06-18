@@ -1,4 +1,5 @@
 # Elements for EQ - eligibility_or_benefit_inquiry
+[segments](../segments.md)
 * 1: `:service_type_code` - [190 codes](../elements/EQ_1.md)
 * 2: `:composite_medical_procedure_identifier` - no codes
 * 3: `:coverage_level_code` - [25 codes](../elements/EQ_3.md)
