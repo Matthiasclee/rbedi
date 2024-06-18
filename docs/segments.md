@@ -22,3 +22,4 @@
 * `AK9` - [`:functional_group_response_trailer`](segments/AK9.md)
 * `AK2` - [`:transaction_set_response_header`](segments/AK2.md)
 * `IK3` - [`:implementation_data_segment_note`](segments/IK3.md)
+* `IK4` - [`:implementation_data_element_note`](segments/IK4.md)
