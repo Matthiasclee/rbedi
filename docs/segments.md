@@ -12,6 +12,7 @@
 * `NM1` - [`:individual_or_organization_name`](segments/NM1.md)
 * `N3` - [`:party_location`](segments/N3.md)
 * `N4` - [`:geographic_location`](segments/N4.md)
+* `PER` - [`:administrative_communications_contact`](segments/PER.md)
 * `TRN` - [`:trace`](segments/TRN.md)
 * `MSG` - [`:message_text`](segments/MSG.md)
 * `DMG` - [`:demographic_information`](segments/DMG.md)

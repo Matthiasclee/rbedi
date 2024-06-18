@@ -15,6 +15,7 @@ module RBEDI
         "NM1" => :individual_or_organization_name,
         "N3" => :party_location,
         "N4" => :geographic_location,
+        "PER" => :administrative_communications_contact,
         "TRN" => :trace,
         "MSG" => :message_text,
         "DMG" => :demographic_information,
