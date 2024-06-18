@@ -14,3 +14,4 @@
 * `DTP` - [`:date_time_period`](segments/DTP.md)
 * `EQ` - [`:eligibility_or_benefit_inquiry`](segments/EQ.md)
 * `EB` - [`:eligibility_or_benefit_information`](segments/EB.md)
+* `AAA` - [`:request_validation`](segments/AAA.md)

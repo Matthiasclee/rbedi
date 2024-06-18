@@ -17,6 +17,7 @@ module RBEDI
         "DTP" => :date_time_period,
         "EQ" => :eligibility_or_benefit_inquiry,
         "EB" => :eligibility_or_benefit_information,
+        "AAA" => :request_validation,
       }
       
       def self.segment_name(segment)
