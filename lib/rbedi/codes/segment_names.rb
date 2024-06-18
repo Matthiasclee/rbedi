@@ -24,6 +24,7 @@ module RBEDI
         "AK1" => :functional_group_response_header,
         "AK9" => :functional_group_response_trailer,
         "AK2" => :transaction_set_response_header,
+        "IK3" => :implementation_data_segment_note,
       }
       
       def self.segment_name(segment)
