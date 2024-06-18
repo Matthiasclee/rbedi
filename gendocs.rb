@@ -77,5 +77,3 @@ RBEDI::Codes::SegmentNames::SEGMENT_NAMES.each do |segment_code, segment_symbol|
     end
   end
 end
-
-File.write(segments_docs_readme_path, File.read(segments_docs_path))
