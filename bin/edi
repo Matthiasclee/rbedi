@@ -7,29 +7,148 @@ s = {}
 
 args = ArgsParser::Args.new(options: o, switches: s)
 
-filename = args.data[0]
+transactions = {}
+selected_transaction = nil
+selected_functional_group = nil
+selected_transaction_set = nil
+selected_segment = nil
 
-if filename.nil? || !File.exist?(filename)
-  STDERR.puts "Please specify an EDI file."
-  exit 1
+def list_transactions(transactions, selected=nil)
+  STDOUT.puts "Transactions (#{transactions.length}): "
+  transactions.each_with_index do |tx, i|
+    STDOUT.puts "#{selected == i ? ?* : " "}#{i.to_s.ljust(4)} | #{tx[0]}"
+  end
 end
 
-file_data = File.read(filename)
-parsed_file = RBEDI::Parser.new(file_data).parse
+def list_functional_groups(transaction, selected=nil)
+  groups = transaction.functional_groups
+  STDOUT.puts "Functional groups (#{groups.length}): "
+  groups.each_with_index do |g, i|
+    STDOUT.puts "#{selected == i ? ?* : " "}#{i.to_s.ljust(4)} | #{g.group_control_number}, #{g.functional_identifier_code}, #{g.transaction_sets.length} tx set#{g.transaction_sets.length != 1 ? ?s : ""}"
+  end
+end
+
+def get_transaction(transactions, id)
+  transactions.to_a[id][1]
+end
+
+def get_functional_group(transactions, txid, fgid)
+  get_transaction(transactions, txid).functional_groups[fgid]
+end
+
+args.data.each do |filename|
+  if File.exist?(filename)
+    transactions[filename] = RBEDI::Parser.new(File.read(filename)).parse
+  else
+    STDERR.puts "#{filename} does not exist"
+  end
+end
+
+STDOUT.puts "#{transactions.length} transaction#{?s unless transactions.length == 1} loaded"
 
 loop do
   print "> "
 
   begin
     command = STDIN.gets.chomp.split(" ")
-    command_name = command[0]
-    command_args = command[1..-1]
   rescue Interrupt
     exit
   end
 
-  if command_name == "tx"
-    if command_args
+  case command[0]
+  when "tx"
+    case command[1]
+    when "list"
+      list_transactions(transactions, selected_transaction)
+    when "sel"
+      if command[2].nil?
+        if selected_transaction.nil?
+          STDOUT.puts "No transaction selected"
+        else
+          STDOUT.puts "Transaction #{selected_transaction} selected"
+        end
+      else
+        txid = command[2].to_i
+        if transactions.to_a[txid]
+          selected_transaction = txid
+          STDOUT.puts "Transaction #{selected_transaction} selected"
+        else
+          STDERR.puts "Transaction #{txid} does not exist"
+        end
+      end
+    when "desel"
+      STDOUT.puts "Transaction #{selected_transaction} deselected"
+      selected_transaction = nil
+      selected_functional_group = nil
+      selected_transaction_set = nil
+    when "load"
+      if command[2].nil? || !File.exist?(command[2])
+        STDERR.puts "File does not exist"
+      elsif transactions[command[2]]
+        STDERR.puts "Transaction already loaded"
+      else
+        transactions[command[2]] = RBEDI::Parser.new(File.read(command[2])).parse
+      end
+    when "unload"
+      if command[2].nil? || transactions.to_a[command[2].to_i].nil?
+        STDERR.puts "Transaction #{command[2]} does not exist"
+      else
+        transactions.delete(transactions.to_a[command[2].to_i][0])
+        if command[2].to_i == selected_transaction
+          selected_transaction = nil
+          selected_functional_group = nil
+          selected_transaction_set = nil
+        elsif command[2].to_i < selected_transaction
+          selected_transaction -= 1
+        end
+        STDOUT.puts "Transaction #{command[2]} unloaded"
+      end
+    when "write"
+      if selected_transcation.nil?
+        STDERR.puts "No transaction selected"
+      else
+        filename = transactions.to_a[selected_transaction][0]
+        File.write(filename, get_transaction(transactions, selected_transaction).to_s)
+        STDOUT.puts "#{filename} written"
+      end
+    else
+      STDERR.puts "Invalid command"
     end
+  when "fg"
+    unless selected_transaction
+      STDERR.puts "No transaction selected"
+      next
+    end
+
+    case command[1]
+    when "list"
+      list_functional_groups(get_transaction(transactions, selected_transaction), selected_functional_group)
+    when "sel"
+      if command[2].nil?
+        if selected_functional_group.nil?
+          STDOUT.puts "No functional group selected"
+        else
+          STDOUT.puts "Functional group #{selected_functional_group} selected"
+        end
+      else
+        fgid = command[2].to_i
+        if get_functional_group(transactions, selected_transaction, fgid)
+          selected_functional_group = fgid
+          STDOUT.puts "Functional group #{selected_functional_group} selected"
+        else
+          STDERR.puts "Functional group #{fgid} does not exist"
+        end
+      end
+    when "desel"
+      STDOUT.puts "Functional group #{functional_group} deselected"
+      selected_functional_group = nil
+      selected_transaction_set = nil
+    else
+      STDERR.puts "Invalid command"
+    end
+  when "exit"
+    exit
+  else
+    STDERR.puts "Invalid command"
   end
 end
