@@ -31,6 +31,8 @@ module RBEDI
 
       raw_element = get_raw_element(element_pos)
 
+      return nil unless raw_element
+
       if @separator
         raw_element_arr = raw_element.split(@separator)
         raw_element_arr.map! do |i|
