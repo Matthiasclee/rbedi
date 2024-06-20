@@ -30,9 +30,17 @@ end
 
 def list_transaction_sets(functional_group, selected=nil)
   sets = functional_group.transaction_sets
-  STDOUT.puts "Transaction sets (#{sets.length})"
+  STDOUT.puts "Transaction sets (#{sets.length}): "
   sets.each_with_index do |s, i|
     STDOUT.puts "#{selected == i ? ?* : " "}#{i.to_s.ljust(4)} | #{s.transaction_set_control_number}, #{s.transaction_set_identifier_code}, #{s.segments.length} segment(s)"
+  end
+end
+
+def list_segments(transaction_set, selected=nil)
+  segs = transaction_set.segments
+  STDOUT.puts "Segments (#{segs.length}): "
+  segs.each_with_index do |s, i|
+    STDOUT.puts "#{selected == i ? ?* : " "}#{i.to_s.ljust(4)} | #{s.segment_type}, #{s.segment_elements.join(RBEDI::Codes::ELEMENT_SEPARATOR)}#{RBEDI::Codes::SEGMENT_TERMINATOR}"
   end
 end
 
@@ -48,6 +56,14 @@ def get_transaction_set(transactions, txid, fgid, tsid)
   get_functional_group(transactions, txid, fgid).transaction_sets[tsid]
 end
 
+def get_segment(transactions, txid, fgid, tsid, sgid)
+  get_transaction_set(transactions, txid, fgid, tsid).segments[sgid]
+end
+
+def repetition_separator(transactions, transaction)
+  get_transaction(transactions, transaction).repetition_separator
+end
+
 args.data.each do |filename|
   if File.exist?(filename)
     transactions[filename] = RBEDI::Parser.new(File.read(filename)).parse
@@ -59,6 +75,15 @@ end
 STDOUT.puts "#{transactions.length} transaction#{?s unless transactions.length == 1} loaded"
 if transactions.length == 1
   selected_transaction = 0
+  if transactions.first[1].functional_groups.length == 1
+    selected_functional_group = 0
+    if transactions.first[1].functional_groups[0].transaction_sets.length == 1
+      selected_transaction_set = 0
+      if transactions.first[1].functional_groups[0].transaction_sets[0].segments.length == 1
+        selected_segment = 0
+      end
+    end
+  end
 end
 
 loop do
@@ -510,6 +535,93 @@ loop do
       else
         STDERR.puts "Invalid attribute"
       end
+    else
+      STDERR.puts "Invalid command"
+    end
+  when "sg"
+    unless selected_transaction_set
+      STDERR.puts "No transaction set selected"
+      next
+    end
+
+    case command[1]
+    when "list"
+      list_segments(get_transaction_set(transactions, selected_transaction, selected_functional_group, selected_transaction_set), selected_segment)
+    when "sel"
+      if command[2].nil?
+        if selected_segment.nil?
+          STDOUT.puts "No segment selected"
+        else
+          STDOUT.puts "Segment #{selected_segment} selected"
+        end
+      else
+        sgid = command[2].to_i
+        if get_segment(transactions, selected_transaction, selected_functional_group, selected_transaction_set, sgid)
+          selected_segment = sgid
+          STDOUT.puts "Segment #{selected_segment} selected"
+        else
+          STDERR.puts "Segment #{sgid} does not exist"
+        end
+      end
+    when "desel"
+      STDOUT.puts "Segment #{selected_segment} deselected"
+      selected_segment = nil
+    when "new"
+      unless command[2]
+        STDERR.puts "Segment type not specified"
+      else
+        command[2] = command[2][1..-1].to_sym if command[2].start_with?(?:)
+      end
+
+      ts = get_transaction_set(transactions, selected_transaction, selected_functional_group, selected_transaction_set)
+      sg = RBEDI::Segment.new(
+        command[2],
+        _separator: repetition_separator(transactions, selected_transaction)
+      )
+
+      if command[3]
+        fg.transaction_sets.insert(command[3].to_i, ts)
+      else
+        fg.transaction_sets << ts
+      end
+
+      selected_segment = ts.segments.index(sg)
+    when "del"
+      sgid = command[2].to_i
+      ts = get_transaction_set(transactions, selected_transaction, selected_functional_group, selected_transaction_set)
+      sg = get_segment(transactions, selected_transaction, selected_functional_group, selected_transaction_set, sgid)
+      unless sg
+        STDERR.puts "Segment #{sgid} does not exist"
+      end
+      if selected_segment == sgid
+        selected_segment = nil
+      elsif sgid < selected_segment.to_i
+        selected_segment -= 1
+      end
+      ts.segments.delete(sg)
+      STDOUT.puts "Segment #{sgid} deleted"
+    when "attr"
+      unless selected_segment
+        STDERR.puts "No segment selected"
+        next
+      end
+      if command[2].nil?
+        STDERR.puts "No attribute specified"
+        next
+      end
+
+      sg = get_segment(transactions, selected_transaction, selected_functional_group, selected_transaction_set, selected_segment)
+
+      if command[2] == "type"
+        STDOUT.puts sg.send(:segment_type)
+      elsif command[2] == "separator"
+        STDOUT.puts sg.send(:separator)
+      elsif !command[2].match?(/[0-9]/)
+        STDOUT.puts sg[command[2].to_sym]
+      elsif command[2].match(/^[0-9]*$/)
+        STDOUT.puts sg[command[2].to_i]
+      end
+
     else
       STDERR.puts "Invalid command"
     end
