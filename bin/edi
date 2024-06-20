@@ -95,6 +95,10 @@ loop do
         STDERR.puts "Transaction already loaded"
       else
         transactions[command[2]] = RBEDI::Parser.new(File.read(command[2])).parse
+        selected_transaction = transactions.to_a.index([command[2], transactions[command[2]]])
+        selected_functional_group = nil
+        selected_transaction_set = nil
+        selected_segment = nil
       end
     when "unload"
       if command[2].nil? || transactions.to_a[command[2].to_i].nil?
@@ -106,11 +110,39 @@ loop do
           selected_functional_group = nil
           selected_transaction_set = nil
           selected_segment = nil
-        elsif command[2].to_i < selected_transaction
+        elsif command[2].to_i < selected_transaction.to_i
           selected_transaction -= 1
         end
         STDOUT.puts "Transaction #{command[2]} unloaded"
       end
+    when "new"
+      unless command[2]
+        STDERR.puts "No file specified"
+        next
+      end
+
+      transactions[command[2]] = RBEDI::TransactionEnvelope.new(
+        interchange_sender_id_qualifier: :mutually_defined,
+        interchange_sender_id: "",
+        interchange_receiver_id_qualifier: :mutually_defined,
+        interchange_receiver_id: "",
+        functional_groups: [],
+        interchange_control_number: 1,
+        date_time: DateTime.now,
+        repetition_separator: ?^,
+        component_element_separator: ?:,
+        interchange_usage_indicator: :production,
+        authorization_information_qualifier: :no_authorization_information_present,
+        authorization_information: " " * 10,
+        security_information_qualifier: :no_security_information_present,
+        security_information: " " * 10,
+        acknowledgement_requested: false
+      )
+
+      selected_transaction = transactions.to_a.index([command[2], transactions[command[2]]])
+      selected_functional_group = nil
+      selected_transaction_set = nil
+      selected_segment = nil
     when "attr"
       unless selected_transaction
         STDERR.puts "No transaction selected"
@@ -118,6 +150,7 @@ loop do
       end
       if command[2].nil?
         STDERR.puts "No attribute specified"
+        next
       end
 
       tx = get_transaction(transactions, selected_transaction)
@@ -232,6 +265,8 @@ loop do
           tx.send(:acknowledgement_requested=, command[3])
           STDOUT.puts "acknowledgement_requested set to #{command[3]}"
         end
+      else
+        STDERR.puts "Invalid attribute"
       end
     when "write"
       if selected_transaction.nil?
@@ -276,6 +311,98 @@ loop do
       selected_functional_group = nil
       selected_transaction_set = nil
       selected_segment = nil
+    when "new"
+      tx = get_transaction(transactions, selected_transaction)
+      maxnum = tx.functional_groups.map{|g|g.group_control_number.to_i}.max.to_i
+      fg = RBEDI::FunctionalGroup.new(
+        group_control_number: maxnum+1,
+        functional_identifier_code: "",
+        application_sender_code: "",
+        application_receiver_code: "",
+        date_time: DateTime.now,
+      )
+
+      if command[2]
+        tx.functional_groups.insert(command[2].to_i, fg)
+      else
+        tx.functional_groups << fg
+      end
+
+      selected_functional_group = tx.functional_groups.index(fg)
+      selected_transaction_set = nil
+      selected_segment = nil
+    when "del"
+      fgid = command[2].to_i
+      tx = get_transaction(transactions, selected_transaction)
+      fg = get_functional_group(transactions, selected_transaction, fgid)
+      unless fg
+        STDERR.puts "Functional group #{fgid} does not exist"
+      end
+      if selected_functional_group == fgid
+        selected_functional_group = nil
+        selected_transaction_set = nil
+        selected_segment = nil
+      elsif fgid < selected_functional_group.to_i
+        selected_functional_group -= 1
+      end
+      tx.functional_groups.delete(fg)
+      STDOUT.puts "Functional group #{fgid} deleted"
+    when "attr"
+      unless selected_functional_group
+        STDERR.puts "No functional group selected"
+        next
+      end
+      if command[2].nil?
+        STDERR.puts "No attribute specified"
+        next
+      end
+
+      fg = get_functional_group(transactions, selected_transaction, selected_functional_group)
+
+      case command[2]
+      when "functional_identifier_code"
+        if command[3].nil?
+          STDOUT.puts fg.send(:functional_identifier_code)
+        else
+          command[3] = command[3][1..-1].to_sym if command[3].start_with?(?:)
+          fg.send(:functional_identifier_code=, command[3])
+          STDOUT.puts "functional_identifier_code set to #{command[3]}"
+        end
+      when "application_sender_code"
+        if command[3].nil?
+          STDOUT.puts fg.send(:application_sender_code)
+        else
+          fg.send(:application_sender_code=, command[3])
+          STDOUT.puts "application_sender_code set to #{command[3]}"
+        end
+      when "application_receiver_code"
+        if command[3].nil?
+          STDOUT.puts fg.send(:application_receiver_code)
+        else
+          fg.send(:application_receiver_code=, command[3])
+          STDOUT.puts "application_receiver_code set to #{command[3]}"
+        end
+      when "group_control_number"
+        if command[3].nil?
+          STDOUT.puts fg.send(:group_control_number)
+        else
+          fg.send(:group_control_number=, command[3])
+          STDOUT.puts "group_control_number set to #{command[3]}"
+        end
+      when "date_time"
+        if command[3].nil?
+          STDOUT.print fg.send(:date_time).ccyymmdd
+          STDOUT.print " "
+          STDOUT.puts fg.send(:date_time).hhmmss
+        else
+          command[3] = command[3].split(" ")
+          datetime = RBEDI::EDIDateTime.parse(date: command[3][0], time: command[3][1])
+          fg.send(:date_time=, datetime)
+          STDOUT.puts "date_time set to #{command[3]}"
+        end
+      else
+        STDERR.puts "Invalid attribute"
+      end
     else
       STDERR.puts "Invalid command"
     end
