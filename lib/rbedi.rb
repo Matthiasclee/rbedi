@@ -11,9 +11,12 @@ module RBEDI
     "transaction_set.rb",
     "non_existent_element_error.rb",
   ]
-  @@files += Dir.glob("lib/rbedi/codes/*").map {|i| i.delete_prefix("lib/rbedi")}
+  require_relative "rbedi/codes/segment_names.rb"
+  Codes::SegmentNames::SEGMENT_NAMES.keys.each do |s|
+    @@files << "codes/#{s.downcase}.rb"
+  end
   @@files.uniq!
-  @@exe = []
+  @@exe = ["edi"]
 
   def self.version
     "0.0.0"
