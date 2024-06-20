@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+require_relative "../lib/rbedi.rb"
+require "argparse"
+
+o = {}
+s = {}
+
+args = ArgsParser::Args.new(options: o, switches: s)
+
+filename = args.data[0]
+
+if filename.nil? || !File.exist?(filename)
+  STDERR.puts "Please specify an EDI file."
+  exit 1
+end
+
+file_data = File.read(filename)
+parsed_file = RBEDI::Parser.new(file_data).parse
+
+loop do
+  print "> "
+
+  begin
+    command = STDIN.gets.chomp.split(" ")
+    command_name = command[0]
+    command_args = command[1..-1]
+  rescue Interrupt
+    exit
+  end
+
+  if command_name == "tx"
+    if command_args
+    end
+  end
+end
