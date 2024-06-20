@@ -2,6 +2,7 @@ module RBEDI
   @@files = [
     "codes.rb",
     "codes/codeset.rb",
+    "codes/segment_names.rb",
     "edi_date_time.rb",
     "functional_group.rb",
     "parser.rb",
