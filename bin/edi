@@ -16,7 +16,7 @@ selected_segment = nil
 def list_transactions(transactions, selected=nil)
   STDOUT.puts "Transactions (#{transactions.length}): "
   transactions.each_with_index do |tx, i|
-    STDOUT.puts "#{selected == i ? ?* : " "}#{i.to_s.ljust(4)} | #{tx[0]}"
+    STDOUT.puts "#{selected == i ? ?* : " "}#{i.to_s.ljust(4)} | #{tx[1].interchange_control_number}, #{tx[1].functional_groups.length} functional group(s), #{tx[0]}"
   end
 end
 
@@ -24,7 +24,7 @@ def list_functional_groups(transaction, selected=nil)
   groups = transaction.functional_groups
   STDOUT.puts "Functional groups (#{groups.length}): "
   groups.each_with_index do |g, i|
-    STDOUT.puts "#{selected == i ? ?* : " "}#{i.to_s.ljust(4)} | #{g.group_control_number}, #{g.functional_identifier_code}, #{g.transaction_sets.length} tx set#{g.transaction_sets.length != 1 ? ?s : ""}"
+    STDOUT.puts "#{selected == i ? ?* : " "}#{i.to_s.ljust(4)} | #{g.group_control_number}, #{g.functional_identifier_code}, #{g.transaction_sets.length} tx set(s)"
   end
 end
 
@@ -45,12 +45,15 @@ args.data.each do |filename|
 end
 
 STDOUT.puts "#{transactions.length} transaction#{?s unless transactions.length == 1} loaded"
+if transactions.length == 1
+  selected_transaction = 0
+end
 
 loop do
   print "> "
 
   begin
-    command = STDIN.gets.chomp.split(" ")
+    command = STDIN.gets.chomp.scan(/"[^"]*"|\S+/).map { |s| s.gsub(/^"|"$/, '') }
   rescue Interrupt
     exit
   end
@@ -71,6 +74,9 @@ loop do
         txid = command[2].to_i
         if transactions.to_a[txid]
           selected_transaction = txid
+          selected_functional_group = nil
+          selected_transaction_set = nil
+          selected_segment = nil
           STDOUT.puts "Transaction #{selected_transaction} selected"
         else
           STDERR.puts "Transaction #{txid} does not exist"
@@ -81,6 +87,7 @@ loop do
       selected_transaction = nil
       selected_functional_group = nil
       selected_transaction_set = nil
+      selected_segment = nil
     when "load"
       if command[2].nil? || !File.exist?(command[2])
         STDERR.puts "File does not exist"
@@ -98,13 +105,136 @@ loop do
           selected_transaction = nil
           selected_functional_group = nil
           selected_transaction_set = nil
+          selected_segment = nil
         elsif command[2].to_i < selected_transaction
           selected_transaction -= 1
         end
         STDOUT.puts "Transaction #{command[2]} unloaded"
       end
+    when "attr"
+      unless selected_transaction
+        STDERR.puts "No transaction selected"
+        next
+      end
+      if command[2].nil?
+        STDERR.puts "No attribute specified"
+      end
+
+      tx = get_transaction(transactions, selected_transaction)
+
+      case command[2]
+      when "interchange_sender_id_qualifier"
+        if command[3].nil?
+          STDOUT.puts tx.send(:interchange_sender_id_qualifier)
+        else
+          command[3] = command[3][1..-1].to_sym if command[3].start_with?(?:)
+          tx.send(:interchange_sender_id_qualifier=, command[3])
+          STDOUT.puts "interchange_sender_id_qualifier set to #{command[3]}"
+        end
+      when "interchange_sender_id"
+        if command[3].nil?
+          STDOUT.puts tx.send(:interchange_sender_id)
+        else
+          tx.send(:interchange_sender_id=, command[3])
+          STDOUT.puts "interchange_sender_id set to #{command[3]}"
+        end
+      when "interchange_receiver_id_qualifier"
+        if command[3].nil?
+          STDOUT.puts tx.send(:interchange_receiver_id_qualifier)
+        else
+          command[3] = command[3][1..-1].to_sym if command[3].start_with?(?:)
+          tx.send(:interchange_receiver_id_qualifier=, command[3])
+          STDOUT.puts "interchange_receiver_id_qualifier set to #{command[3]}"
+        end
+      when "interchange_receiver_id"
+        if command[3].nil?
+          STDOUT.puts tx.send(:interchange_receiver_id)
+        else
+          tx.send(:interchange_receiver_id=, command[3])
+          STDOUT.puts "interchange_receiver_id set to #{command[3]}"
+        end
+      when "interchange_control_number"
+        if command[3].nil?
+          STDOUT.puts tx.send(:interchange_control_number)
+        else
+          tx.send(:interchange_control_number=, command[3])
+          STDOUT.puts "interchange_control_number set to #{command[3]}"
+        end
+      when "date_time"
+        if command[3].nil?
+          STDOUT.print tx.send(:date_time).ccyymmdd
+          STDOUT.print " "
+          STDOUT.puts tx.send(:date_time).hhmmss
+        else
+          command[3] = command[3].split(" ")
+          datetime = RBEDI::EDIDateTime.parse(date: command[3][0], time: command[3][1])
+          tx.send(:date_time=, datetime)
+          STDOUT.puts "date_time set to #{command[3]}"
+        end
+      when "repetition_separator"
+        if command[3].nil?
+          STDOUT.puts tx.send(:repetition_separator)
+        else
+          tx.send(:repetition_separator=, command[3])
+          STDOUT.puts "repetition_separator set to #{command[3]}"
+        end
+      when "component_element_separator"
+        if command[3].nil?
+          STDOUT.puts tx.send(:component_element_separator)
+        else
+          tx.send(:component_element_separator=, command[3])
+          STDOUT.puts "component_element_separator set to #{command[3]}"
+        end
+      when "interchange_usage_indicator"
+        if command[3].nil?
+          STDOUT.puts tx.send(:interchange_usage_indicator)
+        else
+          command[3] = command[3][1..-1].to_sym if command[3].start_with?(?:)
+          tx.send(:interchange_usage_indicator=, command[3])
+          STDOUT.puts "interchange_usage_indicator set to #{command[3]}"
+        end
+      when "authorization_information_qualifier"
+        if command[3].nil?
+          STDOUT.puts tx.send(:authorization_information_qualifier)
+        else
+          command[3] = command[3][1..-1].to_sym if command[3].start_with?(?:)
+          tx.send(:authorization_information_qualifier=, command[3])
+          STDOUT.puts "authorization_information_qualifier set to #{command[3]}"
+        end
+      when "authorization_information"
+        if command[3].nil?
+          STDOUT.puts tx.send(:authorization_information)
+        else
+          tx.send(:authorization_information=, command[3])
+          STDOUT.puts "authorization_information set to #{command[3]}"
+        end
+      when "security_information_qualifier"
+        if command[3].nil?
+          STDOUT.puts tx.send(:security_information_qualifier)
+        else
+          command[3] = command[3][1..-1].to_sym if command[3].start_with?(?:)
+          tx.send(:security_information_qualifier=, command[3])
+          STDOUT.puts "security_information_qualifier set to #{command[3]}"
+        end
+      when "security_information"
+        if command[3].nil?
+          STDOUT.puts tx.send(:security_information)
+        else
+          tx.send(:security_information=, command[3])
+          STDOUT.puts "security_information set to #{command[3]}"
+        end
+      when "acknowledgement_requested"
+        if command[3].nil?
+          STDOUT.puts tx.send(:acknowledgement_requested)
+        else
+          command[3] = true if command[3] == "true"
+          command[3] = false if command[3] == "false"
+          tx.send(:acknowledgement_requested=, command[3])
+          STDOUT.puts "acknowledgement_requested set to #{command[3]}"
+        end
+      end
     when "write"
-      if selected_transcation.nil?
+      if selected_transaction.nil?
         STDERR.puts "No transaction selected"
       else
         filename = transactions.to_a[selected_transaction][0]
@@ -134,6 +264,8 @@ loop do
         fgid = command[2].to_i
         if get_functional_group(transactions, selected_transaction, fgid)
           selected_functional_group = fgid
+          selected_transaction_set = nil
+          selected_segment = nil
           STDOUT.puts "Functional group #{selected_functional_group} selected"
         else
           STDERR.puts "Functional group #{fgid} does not exist"
@@ -143,6 +275,7 @@ loop do
       STDOUT.puts "Functional group #{functional_group} deselected"
       selected_functional_group = nil
       selected_transaction_set = nil
+      selected_segment = nil
     else
       STDERR.puts "Invalid command"
     end
