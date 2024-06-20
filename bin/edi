@@ -569,6 +569,7 @@ loop do
     when "new"
       unless command[2]
         STDERR.puts "Segment type not specified"
+        next
       else
         command[2] = command[2][1..-1].to_sym if command[2].start_with?(?:)
       end
@@ -580,9 +581,9 @@ loop do
       )
 
       if command[3]
-        fg.transaction_sets.insert(command[3].to_i, ts)
+        ts.segments.insert(command[3].to_i, sg)
       else
-        fg.transaction_sets << ts
+        ts.segments << sg
       end
 
       selected_segment = ts.segments.index(sg)
@@ -617,11 +618,28 @@ loop do
       elsif command[2] == "separator"
         STDOUT.puts sg.send(:separator)
       elsif !command[2].match?(/[0-9]/)
-        STDOUT.puts sg[command[2].to_sym]
+        command[2] = command[2].to_sym
+        if command[3]
+          command[3] = true if command[3] == "true"
+          command[3] = false if command[3] == "false"
+          command[3] = command[3][1..-1].to_sym if command[3].start_with?(?:)
+          sg[command[2]] = command[3]
+          STDOUT.puts "#{command[2]} set to #{command[3]}"
+        else
+          STDOUT.puts sg[command[2]]
+        end
       elsif command[2].match(/^[0-9]*$/)
-        STDOUT.puts sg[command[2].to_i]
+        command[2] = command[2].to_i
+        if command[3]
+          command[3] = true if command[3] == "true"
+          command[3] = false if command[3] == "false"
+          command[3] = command[3][1..-1].to_sym if command[3].start_with?(?:)
+          sg[command[2]] = command[3]
+          STDOUT.puts "#{command[2]} set to #{command[3]}"
+        else
+          STDOUT.puts sg[command[2]]
+        end
       end
-
     else
       STDERR.puts "Invalid command"
     end
