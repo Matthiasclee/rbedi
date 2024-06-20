@@ -28,12 +28,24 @@ def list_functional_groups(transaction, selected=nil)
   end
 end
 
+def list_transaction_sets(functional_group, selected=nil)
+  sets = functional_group.transaction_sets
+  STDOUT.puts "Transaction sets (#{sets.length})"
+  sets.each_with_index do |s, i|
+    STDOUT.puts "#{selected == i ? ?* : " "}#{i.to_s.ljust(4)} | #{s.transaction_set_control_number}, #{s.transaction_set_identifier_code}, #{s.segments.length} segment(s)"
+  end
+end
+
 def get_transaction(transactions, id)
   transactions.to_a[id][1]
 end
 
 def get_functional_group(transactions, txid, fgid)
   get_transaction(transactions, txid).functional_groups[fgid]
+end
+
+def get_transaction_set(transactions, txid, fgid, tsid)
+  get_functional_group(transactions, txid, fgid).transaction_sets[tsid]
 end
 
 args.data.each do |filename|
@@ -307,7 +319,7 @@ loop do
         end
       end
     when "desel"
-      STDOUT.puts "Functional group #{functional_group} deselected"
+      STDOUT.puts "Functional group #{selected_functional_group} deselected"
       selected_functional_group = nil
       selected_transaction_set = nil
       selected_segment = nil
@@ -399,6 +411,101 @@ loop do
           datetime = RBEDI::EDIDateTime.parse(date: command[3][0], time: command[3][1])
           fg.send(:date_time=, datetime)
           STDOUT.puts "date_time set to #{command[3]}"
+        end
+      else
+        STDERR.puts "Invalid attribute"
+      end
+    else
+      STDERR.puts "Invalid command"
+    end
+  when "ts"
+    unless selected_functional_group
+      STDERR.puts "No functional group selected"
+      next
+    end
+
+    case command[1]
+    when "list"
+      list_transaction_sets(get_functional_group(transactions, selected_transaction, selected_functional_group), selected_transaction_set)
+    when "sel"
+      if command[2].nil?
+        if selected_transaction_set.nil?
+          STDOUT.puts "No transaction set selected"
+        else
+          STDOUT.puts "Transaction set #{selected_transaction_set} selected"
+        end
+      else
+        tsid = command[2].to_i
+        if get_transaction_set(transactions, selected_transaction, selected_functional_group, tsid)
+          selected_transaction_set = tsid
+          selected_segment = nil
+          STDOUT.puts "Transaction set #{selected_transaction_set} selected"
+        else
+          STDERR.puts "Transaction set #{tsid} does not exist"
+        end
+      end
+    when "desel"
+      STDOUT.puts "Transaction set #{selected_transaction_set} deselected"
+      selected_transaction_set = nil
+      selected_segment = nil
+    when "new"
+      fg = get_functional_group(transactions, selected_transaction, selected_functional_group)
+      maxnum = fg.transaction_sets.map{|s|s.transaction_set_control_number.to_i}.max.to_i
+      ts = RBEDI::TransactionSet.new(
+        transaction_set_control_number: maxnum+1,
+        transaction_set_identifier_code: "",
+      )
+
+      if command[2]
+        fg.transaction_sets.insert(command[2].to_i, ts)
+      else
+        fg.transaction_sets << ts
+      end
+
+      selected_transaction_set = fg.transaction_sets.index(ts)
+      selected_segment = nil
+    when "del"
+      tsid = command[2].to_i
+      fg = get_functional_group(transactions, selected_transaction, selected_functional_group)
+      ts = get_transaction_set(transactions, selected_transaction, selected_functional_group, tsid)
+      unless ts
+        STDERR.puts "Transaction set #{tsid} does not exist"
+      end
+      if selected_transaction_set == tsid
+        selected_transaction_set = nil
+        selected_segment = nil
+      elsif tsid < selected_transaction_set.to_i
+        selected_transaction_set -= 1
+      end
+      fg.transaction_sets.delete(ts)
+      STDOUT.puts "Transaction set #{tsid} deleted"
+    when "attr"
+      unless selected_transaction_set
+        STDERR.puts "No transaction set selected"
+        next
+      end
+      if command[2].nil?
+        STDERR.puts "No attribute specified"
+        next
+      end
+
+      ts = get_transaction_set(transactions, selected_transaction, selected_functional_group, selected_transaction_set)
+
+      case command[2]
+      when "transaction_set_identifier_code"
+        if command[3].nil?
+          STDOUT.puts ts.send(:transaction_set_identifier_code)
+        else
+          command[3] = command[3][1..-1].to_sym if command[3].start_with?(?:)
+          ts.send(:transaction_set_identifier_code=, command[3])
+          STDOUT.puts "transaction_set_identifier_code set to #{command[3]}"
+        end
+      when "transaction_set_control_number"
+        if command[3].nil?
+          STDOUT.puts ts.send(:transaction_set_control_number)
+        else
+          ts.send(:transaction_set_control_number=, command[3])
+          STDOUT.puts "transaction_set_control_number set to #{command[3]}"
         end
       else
         STDERR.puts "Invalid attribute"
