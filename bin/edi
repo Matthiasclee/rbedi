@@ -73,21 +73,32 @@ def repetition_separator(transactions, transaction)
   get_transaction(transactions, transaction).repetition_separator
 end
 
+def dup_instance_variables(obj)
+  vars = obj.instance_variables
+  vars.each do |v|
+    obj.instance_variable_set(v, obj.instance_variable_get(v).dup)
+  end
+end
+
 def dup_strings(segment)
+  dup_instance_variables(segment)
   segment.segment_elements.map!{|s|s.dup}
 end
 
 def dup_segments(ts)
+  dup_instance_variables(ts)
   ts.segments.map!{|s|s.dup}
   ts.segments.each {|s| dup_strings(s)}
 end
 
 def dup_transaction_sets(fg)
+  dup_instance_variables(fg)
   fg.transaction_sets.map!{|s|s.dup}
   fg.transaction_sets.each {|ts| dup_segments(ts)}
 end
 
 def dup_functional_groups(tx)
+  dup_instance_variables(tx)
   tx.functional_groups.map!{|fg|fg.dup}
   tx.functional_groups.each{|fg| dup_transaction_sets(fg)}
 end
@@ -400,7 +411,7 @@ loop do
           next
         end
 
-        tx = get_transaction(transaction, selected_transaction)
+        tx = get_transaction(transactions, selected_transaction)
         fg = get_functional_group(transactions, selected_transaction, selected_functional_group)
         dupfg = fg.dup
         dup_transaction_sets(dupfg)
@@ -543,7 +554,7 @@ loop do
           next
         end
 
-        fg = get_functional_group(transaction, selected_transaction, selected_functional_group)
+        fg = get_functional_group(transactions, selected_transaction, selected_functional_group)
         ts = get_transaction_set(transactions, selected_transaction, selected_functional_group, selected_transaction_set)
         dupts = ts.dup
         dup_segments(dupts)
@@ -664,10 +675,10 @@ loop do
           next
         end
 
-        ts = get_transaction_set(transaction, selected_transaction, selected_functional_group, selected_transaction_set)
+        ts = get_transaction_set(transactions, selected_transaction, selected_functional_group, selected_transaction_set)
         sg = get_segment(transactions, selected_transaction, selected_functional_group, selected_transaction_set, selected_segment)
         dupsg = sg.dup
-        dup_strings(dupst)
+        dup_strings(dupsg)
 
         if command[2]
           ts.segments.insert(command[2].to_i, dupsg)
