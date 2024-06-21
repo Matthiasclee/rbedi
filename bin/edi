@@ -128,7 +128,7 @@ end
 commands = []
 presetcommands = false
 if args.switches[:c]
-  commands = args.switches[:c].split(/\;[\s]?/)
+  commands = args.switches[:c].split(/\;[\s]*/)
   presetcommands = true
 end
 
@@ -147,6 +147,10 @@ loop do
       (puts "exit"; exit) if commands.empty?
       command = commands.delete_at(0)
       puts command
+      if command == "continue"
+        presetcommands = false
+        next
+      end
     end
 
     command = command.scan(/"[^"]*"|\S+/).map { |s| s.gsub(/^"|"$/, '') }
