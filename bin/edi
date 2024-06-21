@@ -161,6 +161,33 @@ loop do
     when "switch"
       presetcommands = true
       next
+    when "sel"
+      if command[1]
+        sel = command[1].split(?.).map(&:to_i)
+        if sel[0] && get_transaction(transactions, sel[0])
+          selected_transaction = sel[0]
+        end
+
+        if sel[1] && get_functional_group(transactions, selected_transaction, sel[1])
+          selected_functional_group = sel[1]
+        end
+
+        if sel[2] && get_transaction_set(transactions, selected_transaction, selected_functional_group, sel[2])
+          selected_transaction_set = sel[2]
+        end
+
+        if sel[3] && get_segment(transactions, selected_transaction, selected_functional_group, selected_transaction_set, sel[3])
+          selected_segment = sel[3]
+        end
+
+        sel = [selected_transaction, selected_functional_group, selected_transaction_set, selected_segment]
+        sel.delete(nil)
+        STDOUT.puts "Selected #{sel.join(?.)}"
+      else
+        sel = [selected_transaction, selected_functional_group, selected_transaction_set, selected_segment]
+        sel.delete(nil)
+        STDOUT.puts sel.join(?.)
+      end
     when "tx"
       case command[1]
       when "list"
