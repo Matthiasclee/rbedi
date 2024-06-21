@@ -11,7 +11,7 @@ module RBEDI
       }
 
       CODES = {
-        1 => {
+        4 => {
           "1" => :unrecognized_segment_id,
           "2" => :unexpected_segment,
           "3" => :required_segment_missing,

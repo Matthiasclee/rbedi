@@ -164,6 +164,11 @@ loop do
     when "sel"
       if command[1]
         sel = command[1].split(?.).map(&:to_i)
+        selected_transaction = nil
+        selected_functional_group = nil
+        selected_transaction_set = nil
+        selected_segment = nil
+
         if sel[0] && get_transaction(transactions, sel[0])
           selected_transaction = sel[0]
         end
