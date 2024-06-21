@@ -132,10 +132,13 @@ loop do
     begin
       command = STDIN.gets.chomp.scan(/"[^"]*"|\S+/).map { |s| s.gsub(/^"|"$/, '') }
     rescue Interrupt
-      exit
+      puts "Type 'exit' to quit"
+      next
     end
 
     case command[0]
+    when nil
+      next
     when "tx"
       case command[1]
       when "list"
@@ -745,6 +748,10 @@ loop do
             command[3].map! do |i|
               if i.start_with?(?:)
                 i[1..-1].to_sym
+              elsif i == "b:true"
+                true
+              elsif i == "b:false"
+                false
               else
                 i
               end
@@ -766,6 +773,10 @@ loop do
             command[3].map! do |i|
               if i.start_with?(?:)
                 i[1..-1].to_sym
+              elsif i == "b:true"
+                true
+              elsif i == "b:false"
+                false
               else
                 i
               end
