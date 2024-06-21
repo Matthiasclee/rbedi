@@ -9,6 +9,7 @@ Gem::Specification.new do |rbedi|
   rbedi.email       = 'matthias@matthiasclee.com'
   rbedi.files       = RBEDI.file_paths + RBEDI.executables.map{|i|"bin/#{i}"}
   rbedi.executables = RBEDI.executables
+  rbedi.add_runtime_dependency "argparse", "~> 0.0.5"
   rbedi.require_paths = ['lib']
   
   rbedi.homepage = 'https://github.com/Matthiasclee/rbedi'
