@@ -147,7 +147,7 @@ loop do
       (puts "exit"; exit) if commands.empty?
       command = commands.delete_at(0)
       puts command
-      if command == "continue"
+      if command == "switch"
         presetcommands = false
         next
       end
@@ -157,6 +157,9 @@ loop do
 
     case command[0]
     when nil
+      next
+    when "switch"
+      presetcommands = true
       next
     when "tx"
       case command[1]
