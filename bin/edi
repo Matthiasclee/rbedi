@@ -2,7 +2,7 @@
 require_relative "../lib/rbedi.rb"
 require "argparse"
 
-o = {}
+o = { :"raise-errors" => {} }
 s = {}
 
 args = ArgsParser::Args.new(options: o, switches: s)
@@ -73,6 +73,25 @@ def repetition_separator(transactions, transaction)
   get_transaction(transactions, transaction).repetition_separator
 end
 
+def dup_strings(segment)
+  segment.segment_elements.map!{|s|s.dup}
+end
+
+def dup_segments(ts)
+  ts.segments.map!{|s|s.dup}
+  ts.segments.each {|s| dup_strings(s)}
+end
+
+def dup_transaction_sets(fg)
+  fg.transaction_sets.map!{|s|s.dup}
+  fg.transaction_sets.each {|ts| dup_segments(ts)}
+end
+
+def dup_functional_groups(tx)
+  tx.functional_groups.map!{|fg|fg.dup}
+  tx.functional_groups.each{|fg| dup_transaction_sets(fg)}
+end
+
 args.data.each do |filename|
   if File.exist?(filename)
     transactions[filename] = RBEDI::Parser.new(File.read(filename)).parse
@@ -97,7 +116,7 @@ end
 
 loop do
   begin
-    print "> "
+    print "EDI> "
 
     begin
       command = STDIN.gets.chomp.scan(/"[^"]*"|\S+/).map { |s| s.gsub(/^"|"$/, '') }
@@ -162,6 +181,23 @@ loop do
           end
           STDOUT.puts "Transaction #{command[2]} unloaded"
         end
+      when "dup"
+        unless selected_transaction
+          STDERR.puts "No transaction selected"
+          next
+        end
+
+        unless command[2]
+          STDERR.puts "No file specified"
+          next
+        end
+
+        tx = get_transaction(transactions, selected_transaction)
+        duptx = tx.dup
+        dup_functional_groups(duptx)
+
+        transactions[command[2]] = duptx
+        selected_transaction = transactions.to_a.index([command[2], transactions[command[2]]])
       when "new"
         unless command[2]
           STDERR.puts "No file specified"
@@ -358,6 +394,24 @@ loop do
         selected_functional_group = nil
         selected_transaction_set = nil
         selected_segment = nil
+      when "dup"
+        unless selected_functional_group
+          STDERR.puts "No functional group selected"
+          next
+        end
+
+        tx = get_transaction(transaction, selected_transaction)
+        fg = get_functional_group(transactions, selected_transaction, selected_functional_group)
+        dupfg = fg.dup
+        dup_transaction_sets(dupfg)
+
+        if command[2]
+          tx.functional_groups.insert(command[2].to_i, dupfg)
+        else
+          tx.functional_groups << dupfg
+        end
+
+        selected_functional_group = tx.functional_groups.index(dupfg)
       when "new"
         tx = get_transaction(transactions, selected_transaction)
         maxnum = tx.functional_groups.map{|g|g.group_control_number.to_i}.max.to_i
@@ -483,6 +537,24 @@ loop do
         STDOUT.puts "Transaction set #{selected_transaction_set} deselected"
         selected_transaction_set = nil
         selected_segment = nil
+      when "dup"
+        unless selected_transaction_set
+          STDERR.puts "No transaction set selected"
+          next
+        end
+
+        fg = get_functional_group(transaction, selected_transaction, selected_functional_group)
+        ts = get_transaction_set(transactions, selected_transaction, selected_functional_group, selected_transaction_set)
+        dupts = ts.dup
+        dup_segments(dupts)
+
+        if command[2]
+          fg.transaction_sets.insert(command[2].to_i, dupts)
+        else
+          fg.transaction_sets << dupts
+        end
+
+        selected_transaction_set = fg.transaction_sets.index(dupts)
       when "new"
         fg = get_functional_group(transactions, selected_transaction, selected_functional_group)
         maxnum = fg.transaction_sets.map{|s|s.transaction_set_control_number.to_i}.max.to_i
@@ -586,6 +658,24 @@ loop do
       when "desel"
         STDOUT.puts "Segment #{selected_segment} deselected"
         selected_segment = nil
+      when "dup"
+        unless selected_segment
+          STDERR.puts "No segment selected"
+          next
+        end
+
+        ts = get_transaction_set(transaction, selected_transaction, selected_functional_group, selected_transaction_set)
+        sg = get_segment(transactions, selected_transaction, selected_functional_group, selected_transaction_set, selected_segment)
+        dupsg = sg.dup
+        dup_strings(dupst)
+
+        if command[2]
+          ts.segments.insert(command[2].to_i, dupsg)
+        else
+          ts.segments << dupsg
+        end
+
+        selected_segment = ts.segments.index(dupsg)
       when "new"
         unless command[2]
           STDERR.puts "Segment type not specified"
@@ -688,6 +778,7 @@ loop do
     else
       STDERR.puts "Invalid command"
     end
-  rescue => i
+  rescue => e
+    raise e if args.options[:"raise-errors"]
   end
 end

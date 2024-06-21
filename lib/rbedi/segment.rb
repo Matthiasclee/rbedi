@@ -97,8 +97,7 @@ module RBEDI
       return segment
     end
 
-    attr_reader :segment_elements
-    attr_accessor :separator
+    attr_accessor :segment_elements, :separator
 
     private
     
