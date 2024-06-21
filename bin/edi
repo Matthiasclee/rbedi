@@ -3,7 +3,7 @@ require_relative "../lib/rbedi.rb"
 require "argparse"
 
 o = { :"raise-errors" => {} }
-s = {}
+s = { c: { has_argument: true } }
 
 args = ArgsParser::Args.new(options: o, switches: s)
 
@@ -125,16 +125,31 @@ if transactions.length == 1
   end
 end
 
+commands = []
+presetcommands = false
+if args.switches[:c]
+  commands = args.switches[:c].split(/\;[\s]?/)
+  presetcommands = true
+end
+
 loop do
   begin
     print "EDI> "
 
-    begin
-      command = STDIN.gets.chomp.scan(/"[^"]*"|\S+/).map { |s| s.gsub(/^"|"$/, '') }
-    rescue Interrupt
-      puts "Type 'exit' to quit"
-      next
+    if !presetcommands
+      begin
+        command = STDIN.gets.chomp
+      rescue Interrupt
+        puts "Type 'exit' to quit"
+        next
+      end
+    else
+      (puts "exit"; exit) if commands.empty?
+      command = commands.delete_at(0)
+      puts command
     end
+
+    command = command.scan(/"[^"]*"|\S+/).map { |s| s.gsub(/^"|"$/, '') }
 
     case command[0]
     when nil
