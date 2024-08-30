@@ -1,4 +1,5 @@
 # Segments
+Docs generated at Thursday, August 29, 2024   7:48 PM PDT
 * `ISA` - [`:interchange_control_header`](segments/ISA.md)
 * `IEA` - [`:interchange_control_trailer`](segments/IEA.md)
 * `GS` - [`:functional_group_header`](segments/GS.md)

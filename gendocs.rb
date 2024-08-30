@@ -2,6 +2,7 @@ require_relative "lib/rbedi.rb"
 
 segments_list_heading = <<EOF
 # Segments
+Docs generated at #{Time.now.strftime("%A, %B %e, %Y  %l:%M %p %Z")}
 EOF
 
 def segments_docs_path
