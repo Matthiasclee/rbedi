@@ -4,10 +4,10 @@ module RBEDI
       extend CodeSet
 
       SEGMENT_POSITIONS = {
-        1 => :heirarchial_id_number,
-        2 => :heirarchial_parent_id_number,
-        3 => :heirarchial_level_code,
-        4 => :heirarchial_child_present,
+        1 => :hierarchial_id_number,
+        2 => :hierarchial_parent_id_number,
+        3 => :hierarchial_level_code,
+        4 => :hierarchial_child_present,
       }
 
       CODES = {

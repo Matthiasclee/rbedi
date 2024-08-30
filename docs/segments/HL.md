@@ -1,6 +1,6 @@
-# Elements for HL - heirarchial_level
+# Elements for HL - hierarchial_level
 [Segments](../segments.md) > HL
-* 1: `:heirarchial_id_number` - no codes
-* 2: `:heirarchial_parent_id_number` - no codes
-* 3: `:heirarchial_level_code` - [250 codes](../elements/HL_3.md)
-* 4: `:heirarchial_child_present` - [2 codes](../elements/HL_4.md)
+* 1: `:hierarchial_id_number` - no codes
+* 2: `:hierarchial_parent_id_number` - no codes
+* 3: `:hierarchial_level_code` - [250 codes](../elements/HL_3.md)
+* 4: `:hierarchial_child_present` - [2 codes](../elements/HL_4.md)

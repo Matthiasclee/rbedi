@@ -1,4 +1,4 @@
-# Codes for HL03 - heirarchial_level_code
+# Codes for HL03 - hierarchial_level_code
 [Segments](../segments.md) > [HL](../segments/HL.md) > HL03
 * `0` - `:region`
 * `1` - `:servicebilling_providercode_identifying_the_telecommunications_company_providing_servicebilling`
