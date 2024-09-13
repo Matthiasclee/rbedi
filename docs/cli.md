@@ -46,7 +46,7 @@
         * `ts sel <ts>`: Select transaction set `<ts>`
     * `ts desel`: Deselect transaction set
     * `ts dup`: Duplicate transaction set
-        * `ts dup <id>`: Duplicate current transactip set, with id `<id>`
+        * `ts dup <id>`: Duplicate current transaction set, with id `<id>`
     * `ts new`: New transaction set
         * `ts new <id>`: New transaction set with id `<id>`
     * `ts del`: Delete transaction set
