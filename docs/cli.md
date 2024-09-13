@@ -52,7 +52,10 @@
         * Valid attributes: see ([Segments > ST](segments/ST.md))
 * `sg`: Segment
     * `sg list`: List segments
+        * `sg list <sg>`: List segment `<sg>`
+        * `sg list <1> <2>`: List segments `<1>` through `<2>`
     * `sg fil <type>`: List all segments of type `<type>`
+    * `sg search <regex>`: List all segments containing string `<regex>`
     * `sg sel`: Show currently selected segment
         * `sg sel <sg>`: Select segment `<sg>`
     * `sg desel`: Deselect segment
