@@ -22,7 +22,7 @@
     * `tx new <file>`: Create new transaction in `<file>`
     * `tx attr <attr>`: Get value of `<attr>`
         * `tx attr <attr> <val>`: Set value of `<attr>` to `<val>`
-        * Valid attributes: see ([Segments > ISA](segments/isa.md))
+        * Valid attributes: see ([Segments > ISA](segments/ISA.md))
     * `tx write`: Save current transaction
 * `fg`: Functional Group
     * `fg list`: List functional groups
@@ -36,7 +36,7 @@
     * `fg del`: Delete functional group
     * `fg attr <attr>`: Get value of `<attr>`
         * `fg attr <attr> <val>`: Set value of `<attr>` to `<val>`
-        * Valid attributes: see ([Segments > GS](segments/gs.md))
+        * Valid attributes: see ([Segments > GS](segments/GS.md))
 * `ts`: Transaction Set
     * `ts list`: List transaction sets
     * `ts sel`: Show currently selected transaction set
@@ -49,7 +49,7 @@
     * `ts del`: Delete transaction set
     * `ts attr <attr>`: Get value of `<attr>`
         * `ts attr <attr> <val>`: Set value of `<attr>` to `<val>`
-        * Valid attributes: see ([Segments > ST](segments/st.md))
+        * Valid attributes: see ([Segments > ST](segments/ST.md))
 * `sg`: Segment
     * `sg list`: List segments
     * `sg fil <type>`: List all segments of type `<type>`
