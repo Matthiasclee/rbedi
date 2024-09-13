@@ -13,6 +13,6 @@ Gem::Specification.new do |rbedi|
   rbedi.add_runtime_dependency "rbtext", "~> 0.3.5"
   rbedi.require_paths = ['lib']
   
-  rbedi.homepage = 'https://github.com/Matthiasclee/rbedi'
+  rbedi.homepage = 'https://matthiasclee.github.io/rbedi/'
   rbedi.license = 'CC-BY-NC-SA-4.0'
 end
