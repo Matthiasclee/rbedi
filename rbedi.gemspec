@@ -4,7 +4,7 @@ Gem::Specification.new do |rbedi|
   rbedi.name        = 'rbedi'
   rbedi.version     = RBEDI.version
   rbedi.summary     = "Interface to interact with X12 EDI files"
-  rbedi.description = "Interface to interact with X12 EDI files"
+  rbedi.description = "RBEDI provides an easy API to create, read, and edit X12 EDI files. Currently, only X12 5010 HIPAA 270/271 transaction sets are completely implemented."
   rbedi.authors     = ["Matthias Lee"]
   rbedi.email       = 'matthias@matthiasclee.com'
   rbedi.files       = RBEDI.file_paths + RBEDI.executables.map{|i|"bin/#{i}"}

@@ -19,7 +19,7 @@ module RBEDI
   @@exe = ["edi"]
 
   def self.version
-    "0.0.0"
+    "0.0.1"
   end
 
   def self.executables
