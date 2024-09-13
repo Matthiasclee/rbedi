@@ -36,17 +36,22 @@ def list_transaction_sets(functional_group, selected=nil)
   end
 end
 
-def list_segments(transaction_set, selected=nil, filter: nil)
+def list_segments(transaction_set, selected=nil, filter: nil, search: nil)
   segs = transaction_set.segments
   segsfil = segs.dup
   if filter
     segsfil = segs.filter do |s|
       s.raw_segment_name == filter
     end
+  elsif search
+    STDOUT.puts "Searching"
+    segsfil = segs.filter do |s|
+      s.to_s.match?(search)
+    end
   end
   STDOUT.puts "Segments (#{segsfil.length}): "
   segs.each_with_index do |s, i|
-    if filter && s.raw_segment_name != filter
+    unless segsfil.include?(s)
       next
     end
     STDOUT.puts "#{selected == i ? ?* : " "}#{i.to_s.ljust(4)} | #{s.segment_type}, #{s.segment_elements.join(RBEDI::Codes::ELEMENT_SEPARATOR)}#{RBEDI::Codes::SEGMENT_TERMINATOR}"
@@ -707,6 +712,12 @@ loop do
           command[2] = RBEDI::Codes::SegmentNames.segment_name(command[2])
         end
         list_segments(get_transaction_set(transactions, selected_transaction, selected_functional_group, selected_transaction_set), selected_segment, filter: command[2])
+      when "search"
+        unless command[2]
+          STDERR.puts "No search query specified"
+          next
+        end
+        list_segments(get_transaction_set(transactions, selected_transaction, selected_functional_group, selected_transaction_set), selected_segment, search: command[2])
       when "sel"
         if command[2].nil?
           if selected_segment.nil?
