@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 require_relative "../lib/rbedi.rb"
 require "argparse"
+require "rbtext"
 
 o = { :"raise-errors" => {} }
 s = { c: { has_argument: true } }
@@ -166,6 +167,10 @@ loop do
       next
     when "switch"
       presetcommands = true
+      next
+    when "clear"
+      R::S.clear
+      R::Cr.go_to_pos(0,0)
       next
     when "sel"
       if command[1]

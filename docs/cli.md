@@ -9,6 +9,7 @@
 
 ### Commands
 * `switch`: Switch control between user and preset command (only applicable when using `-c`)
+* `clear`: Clear the screen
 * `sel`: Show current selection
     * `sel <tx>.<fg>.<ts>.<sg>`: Select tranaction `<tx>`, functional group `<fg>`, transaction set `<ts>`, and segment `<sg>`. *Not all are required*
 * `tx`: Transaction
