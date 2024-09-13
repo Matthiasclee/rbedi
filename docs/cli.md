@@ -6,10 +6,12 @@
 ### Arguments
 * `-c "<commands>"`: Run `edi` with preset commands `"<commands>"`. Commands must be semicolon-terminated.
 * `--raise-errors`: Don't catch ruby errors
+* `--help`: Print CLI docs URL
 
 ### Commands
 * `switch`: Switch control between user and preset command (only applicable when using `-c`)
 * `clear`: Clear the screen
+* `help`: Print CLI docs URL
 * `sel`: Show current selection
     * `sel <tx>.<fg>.<ts>.<sg>`: Select tranaction `<tx>`, functional group `<fg>`, transaction set `<ts>`, and segment `<sg>`. *Not all are required*
 * `tx`: Transaction
@@ -56,7 +58,7 @@
         * `sg list <sg>`: List segment `<sg>`
         * `sg list <1> <2>`: List segments `<1>` through `<2>`
     * `sg fil <type>`: List all segments of type `<type>`
-    * `sg search <regex>`: List all segments containing string `<regex>`
+    * `sg search <regex>`: List all segments matching `<regex>` in plain form
     * `sg sel`: Show currently selected segment
         * `sg sel <sg>`: Select segment `<sg>`
     * `sg desel`: Deselect segment

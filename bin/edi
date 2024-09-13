@@ -3,7 +3,7 @@ require_relative "../lib/rbedi.rb"
 require "argparse"
 require "rbtext"
 
-o = { :"raise-errors" => {} }
+o = { :"raise-errors" => {}, :help => {} }
 s = { c: { has_argument: true } }
 
 args = ArgsParser::Args.new(options: o, switches: s)
@@ -60,6 +60,10 @@ def list_segments(transaction_set, selected=nil, filter: nil, search: nil, range
   end
 end
 
+def help
+  STDOUT.puts "See https://matthiasclee.github.io/rbedi/cli.html"
+end
+
 def get_transaction(transactions, id)
   transactions.to_a[id][1]
 end
@@ -108,6 +112,11 @@ def dup_functional_groups(tx)
   dup_instance_variables(tx)
   tx.functional_groups.map!{|fg|fg.dup}
   tx.functional_groups.each{|fg| dup_transaction_sets(fg)}
+end
+
+if args.options[:help]
+  help
+  exit
 end
 
 args.data.each do |filename|
@@ -171,6 +180,9 @@ loop do
     when "clear"
       R::S.clear
       R::Cr.go_to_pos(0,0)
+      next
+    when "help"
+      help
       next
     when "sel"
       if command[1]
